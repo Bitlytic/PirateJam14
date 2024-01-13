@@ -1,0 +1,37 @@
+How it relates to theme:
+	You have to spread the light to progress. In this case, the "It's Spreading" is a positive affect, and allows you
+	to progress. You die after a short time in the dark, so the light needs to be spread in order for you to exist
+
+
+You start with nothing, but there are mirrors and objects that can help spread the light you interact with
+
+After first few levels, gain access to light core
+
+Light core:
+	Creates a small area of light around you
+	When places on a valid object, powers it
+	Some objects can increase the light produced by the core
+
+Dark:
+	The world is enveloped in dark, and it's very dangerous to you (for some reason I haven't figured out yet)
+	The dark kills you very quickly, and will never be used as a platforming challenge
+		(e.g. I don't ever want a puzzle that's timed based on how long you're in the dark, that's gross.)
+	
+	There is a very small grace period when light disappears that dark is not active, but similar to above,
+	it will not be a puzzle element. This is just to reduce frustration and will never be required to utilize.
+
+
+Inspiration:
+	Obviously OneShot is the first game that comes to mind, as you control Niko who has the world's "Sun" which is a bulb
+	that gives off light and is a beacon of hope to people. In that game, you don't really use the Sun as a puzzle
+	element and it's more of just a story tool though.
+	
+	ElecHead is also a huge inspiration, as it's a game where you are a lil dude who can detach his head to power nearby
+	electronics to platform.
+
+Puzzles:
+	
+	Simple puzzle - You must drop the core to power a lamp that lights your path to go grab a key. Then you have to come
+	back to grab the core and leave with the key to finish the level.
+	
+	
