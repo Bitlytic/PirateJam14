@@ -1,0 +1,20 @@
+Theme: It's Spreading
+
+Platformers:
+	
+	* Light based platformer where you have a bulb or some battery/power that you can spread the light
+		- You can't move in the dark
+		- Spreading light on certain elements will cause them to spread light elsewhere or activate misc.
+	
+	- Power to corrupt/affect
+		- You have some ability to throw a projectile to spread some sort of corruption or plant
+		- That affects the scenery/platforms and allows you to complete puzzles/platforming
+
+Arcade:
+	
+	- Farming with blight
+		- You want to keep plants close together, but they can become blighted and spread that to each other
+		- Plants synergize, which incentivize you to keep them together, but can cause blight to spread faster
+	
+	- Tower defense with plants
+		- Towers are plants, but can become blighted, spreading it to nearby towers
