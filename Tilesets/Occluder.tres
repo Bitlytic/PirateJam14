@@ -1,0 +1,11 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cghwxaiyvpj5a"]
+
+[ext_resource type="PackedScene" uid="uid://b4psdm6a58omg" path="res://Objects/occluder.tscn" id="1_dt86x"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_f1jxa"]
+scenes/1/scene = ExtResource("1_dt86x")
+
+[resource]
+physics_layer_0/collision_layer = 0
+physics_layer_0/collision_mask = 32
+sources/0 = SubResource("TileSetScenesCollectionSource_f1jxa")

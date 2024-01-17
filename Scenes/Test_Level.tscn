@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://bqncw3tk12wq0"]
+
+[ext_resource type="Script" path="res://Scripts/LevelLight.gd" id="1_814yv"]
+[ext_resource type="Texture2D" uid="uid://pt67wevif6od" path="res://Art/background.png" id="1_djmu4"]
+[ext_resource type="TileSet" uid="uid://dw1hx3e13c8n8" path="res://Tilesets/1Bit.tres" id="2_x2l8s"]
+[ext_resource type="TileSet" uid="uid://cghwxaiyvpj5a" path="res://Tilesets/Occluder.tres" id="3_4uuxe"]
+[ext_resource type="PackedScene" uid="uid://bbvve6e80pfm6" path="res://Objects/beam_light.tscn" id="5_a5ce7"]
+[ext_resource type="PackedScene" uid="uid://c04rjccfohxyl" path="res://Entities/player.tscn" id="6_7v26l"]
+[ext_resource type="PackedScene" uid="uid://cfj2bi4162162" path="res://Objects/player_camera.tscn" id="7_5lkyp"]
+
+[sub_resource type="Environment" id="Environment_s7123"]
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(48, 70)
+scale = Vector2(2.22237, 2.22237)
+texture = ExtResource("1_djmu4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s7123")
+
+[node name="GlobalLight" type="DirectionalLight2D" parent="WorldEnvironment"]
+color = Color(0.184314, 0.184314, 0.176471, 1)
+blend_mode = 2
+script = ExtResource("1_814yv")
+
+[node name="Level" type="TileMap" parent="."]
+tile_set = ExtResource("2_x2l8s")
+format = 2
+layer_0/tile_data = PackedInt32Array(393224, 524288, 4, 458760, 524288, 5, 524296, 524288, 6, 393225, 524288, 4, 458761, 524288, 5, 524297, 524288, 6, 393226, 589824, 4, 458762, 589824, 5, 524298, 589824, 6, 393220, 524288, 4, 393219, 524288, 4, 458755, 524288, 5, 524291, 524288, 5, 524292, 524288, 5, 524293, 524288, 5, 458757, 524288, 5, 393221, 524288, 4, 458756, 524288, 5, 458754, 524288, 5, 393218, 524288, 4, 524290, 458752, 5, 589826, 458752, 6, 589828, 524288, 6, 589829, 589824, 6, 589827, 524288, 6, 393223, 524288, 4, 458759, 524288, 5, 524295, 524288, 6, 393217, 524288, 4, 393216, 524288, 4, 458751, 524288, 4, 458750, 524288, 4, 458749, 458752, 4, 524285, 458752, 5, 524286, 524288, 5, 524287, 524288, 5, 458752, 524288, 5, 458753, 524288, 6, 524288, 589824, 5, 589823, 524288, 5, 589822, 524288, 5, 589821, 458752, 5, 655357, 458752, 5, 655358, 524288, 5, 655359, 524288, 5, 589824, 589824, 5, 655360, 589824, 6, 720895, 524288, 6, 720894, 524288, 6, 720893, 458752, 6, 393222, 524288, 4, 458758, 524288, 5, 524294, 524288, 6, 65533, 458752, 5, 131069, 458752, 5, 196605, 458752, 6, 131083, 589824, 6, 65547, 589824, 5, 11, 589824, 5, 10, 524288, 5, 9, 524288, 5, 8, 524288, 5, 6, 524288, 6, 5, 524288, 5, 4, 524288, 5, 3, 524288, 5, 2, 524288, 5, 1, 524288, 5, 0, 524288, 5, 65535, 524288, 5, 65534, 524288, 5, 196606, 524288, 6, 196607, 524288, 6, 131072, 524288, 6, 65536, 524288, 5, 131071, 524288, 5, 131070, 524288, 5, 65537, 524288, 5, 65538, 524288, 5, 65539, 524288, 5, 65540, 524288, 5, 65541, 589824, 5, 65543, 458752, 5, 65544, 524288, 5, 65545, 524288, 5, 65546, 524288, 5, 131082, 524288, 6, 131081, 524288, 6, 131080, 524288, 6, 131079, 458752, 6, 131077, 589824, 6, 131076, 524288, 6, 131075, 524288, 6, 131074, 524288, 6, 131073, 524288, 6, -65531, 524288, 4, -65530, 524288, 4, -65529, 524288, 4, -65528, 524288, 4, -65532, 524288, 4, -65533, 524288, 4, -65534, 524288, 4, -65535, 524288, 4, -65536, 524288, 4, -1, 524288, 4, -2, 524288, 4, -3, 458752, 4, -65527, 524288, 4, -65526, 524288, 4, -65525, 589824, 4, 7, 524288, 5)
+
+[node name="OcclusionMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_4uuxe")
+format = 2
+
+[node name="PointLight2D" parent="." instance=ExtResource("5_a5ce7")]
+position = Vector2(103, 25)
+
+[node name="Player" parent="." instance=ExtResource("6_7v26l")]
+position = Vector2(-25, 78)
+
+[node name="Player Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_5lkyp")]
+position = Vector2(67, 65)
+zoom = Vector2(2, 2)
+target = NodePath("../Player")
