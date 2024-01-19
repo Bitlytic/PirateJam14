@@ -7,6 +7,7 @@ extends Node2D
 
 @export var disable_probing := false
 @export var draw_debug := false
+@export var debug_probe := false
 
 var sprite : Sprite2D
 
@@ -85,3 +86,8 @@ func is_in_light() -> bool:
 		sprite.modulate.r = 0 if lights.is_empty() else 1
 	
 	return !lights.is_empty()
+
+
+func _process(delta):
+	if debug_probe:
+		is_in_light()

@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @export var visibility : VisibilityComponent
 
-var max_health := 1.0
+var max_health := 0.5
 @onready var health := max_health
 
 
@@ -11,9 +11,11 @@ func _process(delta):
 	if !visibility.is_in_light():
 		health -= delta
 		if health <= 0:
+			$Sprite.modulate.a = 0.0
 			pass
 	else:
 		health = max_health
+		$Sprite.modulate.a = 1.0
 
 
 func _physics_process(delta):

@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c04rjccfohxyl"]
+[gd_scene load_steps=11 format=3 uid="uid://c04rjccfohxyl"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yv7s0"]
 [ext_resource type="Texture2D" uid="uid://dnsl7j05xt64n" path="res://Art/Cat.png" id="2_7csi1"]
 [ext_resource type="Script" path="res://Scripts/FlippableShape.gd" id="2_mx4kt"]
 [ext_resource type="Script" path="res://Scripts/HeldObject.gd" id="3_i7nv5"]
-[ext_resource type="Script" path="res://Scripts/LightProbe.gd" id="6_4qvio"]
 [ext_resource type="Script" path="res://Scripts/FlipController.gd" id="6_wlahb"]
+[ext_resource type="PackedScene" uid="uid://bo5ie4iog87lx" path="res://Objects/light_probe.tscn" id="7_6e8xx"]
 [ext_resource type="Script" path="res://Scripts/Visibility.gd" id="7_a3plf"]
 [ext_resource type="Script" path="res://Scripts/MovementController.gd" id="8_wu6qc"]
 
@@ -14,8 +14,6 @@ size = Vector2(12, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw0gh"]
 size = Vector2(28, 30)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_epjnq"]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visibility")]
 collision_mask = 192
@@ -51,41 +49,21 @@ nodes_to_flip = [NodePath("../PickupRange/shape"), NodePath("../HeldObject")]
 [node name="Visibility" type="Node2D" parent="."]
 script = ExtResource("7_a3plf")
 
-[node name="LightProbe" type="Node2D" parent="Visibility"]
+[node name="LightProbeTL" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(-6, -9)
-script = ExtResource("6_4qvio")
 draw_debug = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Visibility/LightProbe"]
-scale = Vector2(2, 2)
-texture = SubResource("PlaceholderTexture2D_epjnq")
-
-[node name="LightProbe2" type="Node2D" parent="Visibility"]
-position = Vector2(6, -9)
-script = ExtResource("6_4qvio")
-draw_debug = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Visibility/LightProbe2"]
-scale = Vector2(2, 2)
-texture = SubResource("PlaceholderTexture2D_epjnq")
-
-[node name="LightProbe3" type="Node2D" parent="Visibility"]
+[node name="LightProbeBL" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(-6, 14)
-script = ExtResource("6_4qvio")
 draw_debug = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Visibility/LightProbe3"]
-scale = Vector2(2, 2)
-texture = SubResource("PlaceholderTexture2D_epjnq")
+[node name="LightProbeTR" parent="Visibility" instance=ExtResource("7_6e8xx")]
+position = Vector2(6, -9)
+draw_debug = true
 
-[node name="LightProbe4" type="Node2D" parent="Visibility"]
+[node name="LightProbeBR" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(6, 14)
-script = ExtResource("6_4qvio")
 draw_debug = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Visibility/LightProbe4"]
-scale = Vector2(2, 2)
-texture = SubResource("PlaceholderTexture2D_epjnq")
 
 [node name="MovementController" type="Node2D" parent="."]
 script = ExtResource("8_wu6qc")

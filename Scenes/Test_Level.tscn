@@ -47,13 +47,19 @@ zoom = Vector2(3, 3)
 target = NodePath("../Player")
 
 [node name="Core" parent="." instance=ExtResource("8_7ptqh")]
-position = Vector2(-89, 49)
+position = Vector2(-57, 55)
 
 [node name="BeamLight" parent="." instance=ExtResource("5_a5ce7")]
-position = Vector2(104, 17)
+position = Vector2(104, 16)
 rotation = 1.56737
 scale = Vector2(1.32658, 1.85711)
 
+[node name="BeamLight2" parent="." instance=ExtResource("5_a5ce7")]
+position = Vector2(24, 129)
+rotation = 1.56737
+scale = Vector2(1.32658, 1.85711)
+inverse_power = true
+
 [node name="Socket" parent="." node_paths=PackedStringArray("contraptions") instance=ExtResource("9_0st0s")]
 position = Vector2(-88, 72)
-contraptions = [NodePath("../BeamLight")]
+contraptions = [NodePath("../BeamLight"), NodePath("../BeamLight2"), null]

@@ -30,13 +30,17 @@ func _physics_process(delta):
 		powered_buffer = powered_buffer_size
 
 
+func power_contraptions():
+	for c in contraptions:
+		if c:
+			c.handle_power(powered)
+
+
 func turn_on_contraptions():
 	powered = true
-	for c in contraptions:
-		c.turn_on()
+	power_contraptions()
 
 
 func turn_off_contraptions():
 	powered = false
-	for c in contraptions:
-		c.turn_off()
+	power_contraptions()

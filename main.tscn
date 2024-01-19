@@ -53,3 +53,9 @@ position = Vector2(56, 86)
 position = Vector2(121, -23)
 rotation = 3.14159
 scale = Vector2(3.58012, 1.33862)
+
+[node name="BeamLight2" parent="." instance=ExtResource("8_vl0d7")]
+position = Vector2(-9, 81)
+rotation = 5.36856
+scale = Vector2(3.58012, 1.33862)
+inverse_power = true
