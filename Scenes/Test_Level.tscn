@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqncw3tk12wq0"]
+[gd_scene load_steps=12 format=3 uid="uid://bqncw3tk12wq0"]
 
 [ext_resource type="Script" path="res://Scripts/LevelLight.gd" id="1_814yv"]
 [ext_resource type="Texture2D" uid="uid://pt67wevif6od" path="res://Art/background.png" id="1_djmu4"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cfj2bi4162162" path="res://Objects/player_camera.tscn" id="7_5lkyp"]
 [ext_resource type="PackedScene" uid="uid://cxbhdk71hsi5w" path="res://Objects/core.tscn" id="8_7ptqh"]
 [ext_resource type="PackedScene" uid="uid://x435cv4epyk6" path="res://Objects/socket.tscn" id="9_0st0s"]
+[ext_resource type="PackedScene" uid="uid://f3nywtgid2ar" path="res://Objects/mirror_block.tscn" id="10_brg0v"]
 
 [sub_resource type="Environment" id="Environment_s7123"]
 
@@ -50,12 +51,13 @@ target = NodePath("../Player")
 position = Vector2(-57, 55)
 
 [node name="BeamLight" parent="." instance=ExtResource("5_a5ce7")]
-position = Vector2(104, 16)
+position = Vector2(104, 17)
 rotation = 1.56737
 scale = Vector2(1.32658, 1.85711)
+inverse_power = true
 
 [node name="BeamLight2" parent="." instance=ExtResource("5_a5ce7")]
-position = Vector2(24, 129)
+position = Vector2(23, 128)
 rotation = 1.56737
 scale = Vector2(1.32658, 1.85711)
 inverse_power = true
@@ -63,3 +65,7 @@ inverse_power = true
 [node name="Socket" parent="." node_paths=PackedStringArray("contraptions") instance=ExtResource("9_0st0s")]
 position = Vector2(-88, 72)
 contraptions = [NodePath("../BeamLight"), NodePath("../BeamLight2"), null]
+
+[node name="MirrorBlock" parent="." instance=ExtResource("10_brg0v")]
+position = Vector2(88, 73)
+rotation = 0.0493777

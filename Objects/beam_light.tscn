@@ -23,7 +23,7 @@ shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 2.0
 texture = SubResource("GradientTexture2D_jvfw0")
-offset = Vector2(32, 0)
+offset = Vector2(31, 0)
 script = ExtResource("1_65usq")
 
 [node name="LightArea" type="Area2D" parent="Light"]
@@ -31,6 +31,5 @@ collision_layer = 16
 collision_mask = 0
 
 [node name="LightShape" type="CollisionShape2D" parent="Light/LightArea"]
-visible = false
 position = Vector2(31, 0)
 shape = SubResource("RectangleShape2D_s45df")

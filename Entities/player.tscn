@@ -51,18 +51,22 @@ script = ExtResource("7_a3plf")
 
 [node name="LightProbeTL" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(-6, -9)
+scale = Vector2(2, 2)
 draw_debug = true
 
 [node name="LightProbeBL" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(-6, 14)
+scale = Vector2(2, 2)
 draw_debug = true
 
 [node name="LightProbeTR" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(6, -9)
+scale = Vector2(2, 2)
 draw_debug = true
 
 [node name="LightProbeBR" parent="Visibility" instance=ExtResource("7_6e8xx")]
 position = Vector2(6, 14)
+scale = Vector2(2, 2)
 draw_debug = true
 
 [node name="MovementController" type="Node2D" parent="."]

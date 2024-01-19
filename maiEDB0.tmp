@@ -62,4 +62,4 @@ scale = Vector2(3.58012, 1.33862)
 inverse_power = true
 
 [node name="MirrorBlock" parent="." instance=ExtResource("9_u8p8g")]
-position = Vector2(37, 97)
+position = Vector2(-38, -7)

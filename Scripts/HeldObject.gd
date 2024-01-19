@@ -4,6 +4,8 @@ extends Node2D
 
 @export var object_collision : CollisionShape2D
 
+var pickup_targets : Array[Node2D]
+
 var pickup_target : Node2D
 
 func _ready():
@@ -15,9 +17,11 @@ func _process(delta):
 		
 		if held_object != null:
 			drop_object()
-		elif pickup_target != null:
-			hold_object(pickup_target)
-			pickup_target = null
+		elif pickup_targets.size() > 0:
+			hold_object(pickup_targets[0])
+			
+	if Input.is_action_just_pressed("move_crouch"):
+		print(pickup_targets)
 
 
 func hold_object(node: RigidBody2D):
@@ -26,7 +30,7 @@ func hold_object(node: RigidBody2D):
 	held_object.global_position = global_position
 	held_object.reparent(self)
 	
-	held_object.process_mode = Node.PROCESS_MODE_DISABLED
+	#held_object.process_mode = Node.PROCESS_MODE_DISABLED
 	held_object.freeze = true
 	
 	#object_collision.disabled = true
@@ -36,7 +40,7 @@ func drop_object():
 	if !held_object:
 		push_error("Dropping object when it doesn't exist!")
 		return
-	held_object.process_mode = Node.PROCESS_MODE_INHERIT
+	#held_object.process_mode = Node.PROCESS_MODE_INHERIT
 	held_object.freeze = false
 	held_object.reparent(get_tree().root)
 	
@@ -47,8 +51,16 @@ func drop_object():
 
 func _on_pickup_range_body_entered(body):
 	pickup_target = body
+	
+	if !pickup_targets.has(body):
+		pickup_targets.append(body)
 
 
 func _on_pickup_range_body_exited(body):
+	var index = pickup_targets.find(body)
+	print(body, index)
+	if index != -1:
+		pickup_targets.remove_at(index)
+	
 	if body == pickup_target:
 		pickup_target = null

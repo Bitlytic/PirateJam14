@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://f3nywtgid2ar"]
+
+[ext_resource type="Texture2D" uid="uid://caku3n5b6tpa1" path="res://Art/monochrome_tilemap_transparent_packed.png" id="1_tj8yp"]
+[ext_resource type="Script" path="res://Scripts/mirror_block.gd" id="1_wxmmd"]
+[ext_resource type="PackedScene" uid="uid://bo5ie4iog87lx" path="res://Objects/light_probe.tscn" id="2_iva08"]
+[ext_resource type="PackedScene" uid="uid://dqrbhwpdmpamg" path="res://Objects/beam_light.tscn" id="3_nfu84"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3e3r1"]
+polygon = PackedVector2Array(8, 8, -7, 8, 8, -7)
+
+[node name="MirrorBlock" type="RigidBody2D" node_paths=PackedStringArray("_probes_holder", "beam_center", "beam_light")]
+collision_layer = 34
+collision_mask = 192
+script = ExtResource("1_wxmmd")
+_probes_holder = NodePath("Probes")
+beam_center = NodePath("BeamCenter")
+beam_light = NodePath("BeamCenter/BeamLight")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(8, 8, 8, -7, -7, 8)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_3e3r1")
+
+[node name="BeamCenter" type="Node2D" parent="."]
+rotation = -2.35619
+
+[node name="BeamLight" parent="BeamCenter" instance=ExtResource("3_nfu84")]
+position = Vector2(1.62553, -8.58307e-06)
+scale = Vector2(1.54, 0.55)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_tj8yp")
+region_enabled = true
+region_rect = Rect2(64, 16, 16, 16)
+
+[node name="Probes" type="Node2D" parent="."]
+position = Vector2(-0.5, -0.5)
+
+[node name="LightProbe" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(7, -7)
+
+[node name="LightProbe2" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(6, -6)
+
+[node name="LightProbe3" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(5, -5)
+
+[node name="LightProbe4" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(4, -4)
+
+[node name="LightProbe5" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(3, -3)
+
+[node name="LightProbe6" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(2, -2)
+
+[node name="LightProbe7" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(1, -1)
+
+[node name="LightProbe8" parent="Probes" instance=ExtResource("2_iva08")]
+
+[node name="LightProbe9" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-1, 1)
+
+[node name="LightProbe10" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-2, 2)
+
+[node name="LightProbe11" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-3, 3)
+
+[node name="LightProbe12" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-4, 4)
+
+[node name="LightProbe13" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-5, 5)
+
+[node name="LightProbe14" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-6, 6)
+
+[node name="LightProbe15" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(-7, 7)
