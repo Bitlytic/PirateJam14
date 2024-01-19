@@ -3,9 +3,17 @@ extends CharacterBody2D
 
 @export var visibility : VisibilityComponent
 
+var max_health := 1.0
+@onready var health := max_health
+
 
 func _process(delta):
-	visibility.is_in_light()
+	if !visibility.is_in_light():
+		health -= delta
+		if health <= 0:
+			pass
+	else:
+		health = max_health
 
 
 func _physics_process(delta):

@@ -1,16 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://owc4hydgc40"]
+[gd_scene load_steps=10 format=3 uid="uid://owc4hydgc40"]
 
 [ext_resource type="Texture2D" uid="uid://pt67wevif6od" path="res://Art/background.png" id="1_j0xkk"]
 [ext_resource type="TileSet" uid="uid://dw1hx3e13c8n8" path="res://Tilesets/1Bit.tres" id="3_23sre"]
 [ext_resource type="PackedScene" uid="uid://c04rjccfohxyl" path="res://Entities/player.tscn" id="4_hy11u"]
 [ext_resource type="PackedScene" uid="uid://cfj2bi4162162" path="res://Objects/player_camera.tscn" id="4_ixqb2"]
 [ext_resource type="Script" path="res://Scripts/LevelLight.gd" id="6_kpsdi"]
+[ext_resource type="PackedScene" uid="uid://bbvve6e80pfm6" path="res://Objects/beam_light.tscn" id="6_y08yq"]
 [ext_resource type="TileSet" uid="uid://cghwxaiyvpj5a" path="res://Tilesets/Occluder.tres" id="7_cg8nt"]
 [ext_resource type="PackedScene" uid="uid://cxbhdk71hsi5w" path="res://Objects/core.tscn" id="7_rq4jg"]
 
 [sub_resource type="Environment" id="Environment_emkff"]
 
 [node name="Main" type="Node2D"]
+
+[node name="PointLight2D" parent="." instance=ExtResource("6_y08yq")]
+position = Vector2(113, -22)
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(333, -443)
@@ -29,7 +33,7 @@ target = NodePath("../Player")
 follow = true
 
 [node name="Player" parent="." instance=ExtResource("4_hy11u")]
-position = Vector2(-66, -18)
+position = Vector2(-143, -67)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_emkff")

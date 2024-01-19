@@ -3,6 +3,7 @@ extends Node2D
 
 @export_flags_2d_physics var raycast_mask := 0b10100000
 @export_flags_2d_physics var core_mask := 0b10000000
+@export_flags_2d_physics var beam_mask := 0b00010000
 
 @export var disable_probing := false
 @export var draw_debug := false
@@ -34,12 +35,37 @@ func is_in_light() -> bool:
 	query.collide_with_areas = true
 	query.hit_from_inside = true
 	
+	var point_query := PhysicsPointQueryParameters2D.new()
+	
+	point_query.position = global_position
+	point_query.collide_with_areas = true
+	point_query.collide_with_bodies = false
+	
+	point_query.collision_mask = beam_mask
+	
+	var beam_results = space_state.intersect_point(point_query)
+	
 	for light: PointLight2D in _lights:
-		dist = (global_position - light.global_position).length()
 		
-		if dist > (light.texture.get_size().x / 2.0) * light.texture_scale:
-			# Light out of range, shouldn't even check
-			continue
+		# Beam lights use area to check bounds, maybe others should too?
+		if light is BeamLight:
+			var valid := false
+			for beam in beam_results:
+				var l = beam['collider'].get_parent()
+				
+				if l == light:
+					valid = true
+					break
+			
+			if !valid:
+				continue
+			
+		else:
+			dist = (global_position - light.global_position).length()
+			
+			if dist > (light.texture.get_size().x / 2.0) * light.texture_scale:
+				# Light out of range, shouldn't even check
+				continue
 		
 		if light is CoreLight:
 			query.collision_mask = core_mask
@@ -49,7 +75,7 @@ func is_in_light() -> bool:
 		query.to = light.global_position
 		
 		var result = space_state.intersect_ray(query)
-
+		
 		if result.is_empty():
 			lights.append(light)
 	

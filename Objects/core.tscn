@@ -12,6 +12,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.992157, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fjqie"]
 gradient = SubResource("Gradient_74p15")
+width = 128
+height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -33,7 +35,9 @@ texture = ExtResource("1_u7ytp")
 blend_mode = 2
 shadow_enabled = true
 shadow_filter = 1
-shadow_filter_smooth = 5.0
+shadow_filter_smooth = 12.2
 texture = SubResource("GradientTexture2D_fjqie")
-texture_scale = 1.5
+texture_scale = 0.75
 script = ExtResource("2_3csyj")
+
+[node name="ShadowTest" type="Sprite2D" parent="."]
