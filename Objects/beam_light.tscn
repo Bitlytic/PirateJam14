@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqrbhwpdmpamg"]
+[gd_scene load_steps=6 format=3 uid="uid://dqrbhwpdmpamg"]
 
+[ext_resource type="Script" path="res://Objects/beam_light_contraption.gd" id="1_50bak"]
 [ext_resource type="Script" path="res://Scripts/beam_light.gd" id="1_65usq"]
 
 [sub_resource type="Gradient" id="Gradient_4p175"]
@@ -13,7 +14,10 @@ height = 32
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s45df"]
 size = Vector2(64, 32)
 
-[node name="BeamLight" type="PointLight2D" node_paths=PackedStringArray("light_shape")]
+[node name="BeamLight" type="Node2D"]
+script = ExtResource("1_50bak")
+
+[node name="Light" type="PointLight2D" parent="."]
 blend_mode = 2
 shadow_enabled = true
 shadow_filter = 1
@@ -21,12 +25,12 @@ shadow_filter_smooth = 2.0
 texture = SubResource("GradientTexture2D_jvfw0")
 offset = Vector2(32, 0)
 script = ExtResource("1_65usq")
-light_shape = NodePath("LightArea/LightShape")
 
-[node name="LightArea" type="Area2D" parent="."]
+[node name="LightArea" type="Area2D" parent="Light"]
 collision_layer = 16
 collision_mask = 0
 
-[node name="LightShape" type="CollisionShape2D" parent="LightArea"]
+[node name="LightShape" type="CollisionShape2D" parent="Light/LightArea"]
+visible = false
 position = Vector2(31, 0)
 shape = SubResource("RectangleShape2D_s45df")

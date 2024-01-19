@@ -19,8 +19,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [node name="Core" type="RigidBody2D"]
-disable_mode = 1
-collision_layer = 2
+collision_layer = 6
 collision_mask = 192
 linear_damp = 4.53
 angular_damp = 37.514
@@ -32,6 +31,7 @@ shape = SubResource("CircleShape2D_cvby1")
 texture = ExtResource("1_u7ytp")
 
 [node name="Core Light" type="PointLight2D" parent="."]
+color = Color(1, 0.917647, 0.839216, 1)
 blend_mode = 2
 shadow_enabled = true
 shadow_filter = 1

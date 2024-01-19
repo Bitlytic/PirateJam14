@@ -9,8 +9,8 @@
 [ext_resource type="Script" path="res://Scripts/Visibility.gd" id="7_a3plf"]
 [ext_resource type="Script" path="res://Scripts/MovementController.gd" id="8_wu6qc"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5so7"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jm6xp"]
+size = Vector2(12, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw0gh"]
 size = Vector2(28, 30)
@@ -24,13 +24,13 @@ visibility = NodePath("Visibility")
 
 [node name="Floor Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_n5so7")
+shape = SubResource("RectangleShape2D_jm6xp")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_7csi1")
 
 [node name="HeldObject" type="Node2D" parent="."]
-position = Vector2(6, 2)
+position = Vector2(4, 2)
 script = ExtResource("3_i7nv5")
 
 [node name="PickupRange" type="Area2D" parent="."]

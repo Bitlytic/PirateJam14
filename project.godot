@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PirateJam14"
-run/main_scene="res://main.tscn"
+run/main_scene="res://Scenes/Test_Level.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -69,7 +69,7 @@ move_crouch={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Pickup"
-2d_physics/layer_3="Enemy"
+2d_physics/layer_3="Core"
 2d_physics/layer_5="Light Beam"
 2d_physics/layer_6="Light Occluder"
 2d_physics/layer_7="Object"

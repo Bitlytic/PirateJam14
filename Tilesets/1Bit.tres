@@ -1,6 +1,9 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://dw1hx3e13c8n8"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://dw1hx3e13c8n8"]
 
 [ext_resource type="Texture2D" uid="uid://caku3n5b6tpa1" path="res://Art/monochrome_tilemap_transparent_packed.png" id="1_b1cbu"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ej06c"]
+polygon = PackedVector2Array(-8, -8, -5, -6, -2, -3, 2, -3, 5, -6, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4ovts"]
 polygon = PackedVector2Array(-6, -6, -5, -7, -2, -8, 8, -8, 8, 8, -8, 8, -8, -2, -7, -5)
@@ -412,8 +415,10 @@ texture = ExtResource("1_b1cbu")
 13:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 13:5/0/physics_layer_0/angular_velocity = 0.0
 14:5/0 = 0
+14:5/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_ej06c")
 14:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 14:5/0/physics_layer_0/angular_velocity = 0.0
+14:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -5, -6, -2, -3, 2, -3, 5, -6, 8, -8, 8, 8, -8, 8)
 15:5/0 = 0
 15:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 15:5/0/physics_layer_0/angular_velocity = 0.0

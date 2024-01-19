@@ -22,11 +22,12 @@ func _process(delta):
 
 func hold_object(node: RigidBody2D):
 	held_object = node
+	
+	held_object.global_position = global_position
+	held_object.reparent(self)
+	
 	held_object.process_mode = Node.PROCESS_MODE_DISABLED
 	held_object.freeze = true
-	
-	held_object.reparent(self)
-	held_object.global_position = global_position
 	
 	#object_collision.disabled = true
 

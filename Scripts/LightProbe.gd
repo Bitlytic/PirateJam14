@@ -46,6 +46,8 @@ func is_in_light() -> bool:
 	var beam_results = space_state.intersect_point(point_query)
 	
 	for light: PointLight2D in _lights:
+		if !light.enabled:
+			continue
 		
 		# Beam lights use area to check bounds, maybe others should too?
 		if light is BeamLight:
