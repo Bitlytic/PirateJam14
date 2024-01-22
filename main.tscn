@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://owc4hydgc40"]
+[gd_scene load_steps=12 format=3 uid="uid://owc4hydgc40"]
 
 [ext_resource type="Texture2D" uid="uid://pt67wevif6od" path="res://Art/background.png" id="1_j0xkk"]
 [ext_resource type="TileSet" uid="uid://dw1hx3e13c8n8" path="res://Tilesets/1Bit.tres" id="3_23sre"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cxbhdk71hsi5w" path="res://Objects/core.tscn" id="7_rq4jg"]
 [ext_resource type="PackedScene" uid="uid://dqrbhwpdmpamg" path="res://Objects/beam_light.tscn" id="8_vl0d7"]
 [ext_resource type="PackedScene" uid="uid://f3nywtgid2ar" path="res://Objects/mirror_block.tscn" id="9_u8p8g"]
+[ext_resource type="PackedScene" uid="uid://capeutjf1btlt" path="res://Objects/lever.tscn" id="10_qpkil"]
 
 [sub_resource type="Environment" id="Environment_emkff"]
 
@@ -63,3 +64,5 @@ inverse_power = true
 
 [node name="MirrorBlock" parent="." instance=ExtResource("9_u8p8g")]
 position = Vector2(37, 97)
+
+[node name="Lever" parent="." instance=ExtResource("10_qpkil")]

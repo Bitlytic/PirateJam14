@@ -1,14 +1,21 @@
-extends Node2D
+extends Contraption
 
 
-@export var _probes_holder : Node
-@export var beam_center : Node2D
-@export var beam_light : BeamLightContraption
+@export var rotation_amount := 90.0
+
+var _probes_holder : Node
+var beam_center : Node2D
+var beam_light : BeamLightContraption
 
 var probes : Array[LightProbe]
 
+@onready var starting_rotation : float = global_rotation
 
 func _ready():
+	_probes_holder = $Probes
+	beam_center = $BeamCenter
+	beam_light = $BeamCenter/BeamLight
+	
 	for c in _probes_holder.get_children():
 		if c is LightProbe:
 			probes.append(c)
@@ -47,6 +54,7 @@ func _physics_process(delta):
 	var first_probe = probes_in_light[0]
 	var last_probe = probes_in_light[probes_in_light.size()-1]
 	
+	
 	var center = last_probe.global_position + first_probe.global_position
 	center /= 2.0
 	beam_center.global_position = center
@@ -58,3 +66,16 @@ func _physics_process(delta):
 	
 	beam_light.scale.y = (diff.length() / 17.0) * 0.55
 
+func turn_on():
+	
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(self, "global_rotation", starting_rotation + deg_to_rad(rotation_amount), 1.0)
+
+
+func turn_off():
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(self, "global_rotation", starting_rotation, 1.0)

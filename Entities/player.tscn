@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c04rjccfohxyl"]
+[gd_scene load_steps=13 format=3 uid="uid://c04rjccfohxyl"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yv7s0"]
 [ext_resource type="Texture2D" uid="uid://dnsl7j05xt64n" path="res://Art/Cat.png" id="2_7csi1"]
@@ -8,11 +8,15 @@
 [ext_resource type="PackedScene" uid="uid://bo5ie4iog87lx" path="res://Objects/light_probe.tscn" id="7_6e8xx"]
 [ext_resource type="Script" path="res://Scripts/Visibility.gd" id="7_a3plf"]
 [ext_resource type="Script" path="res://Scripts/MovementController.gd" id="8_wu6qc"]
+[ext_resource type="Script" path="res://Scripts/InteractionHandler.gd" id="9_o0fr0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jm6xp"]
 size = Vector2(12, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw0gh"]
+size = Vector2(28, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_etk2v"]
 size = Vector2(28, 30)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visibility")]
@@ -27,10 +31,6 @@ shape = SubResource("RectangleShape2D_jm6xp")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_7csi1")
 
-[node name="HeldObject" type="Node2D" parent="."]
-position = Vector2(4, 2)
-script = ExtResource("3_i7nv5")
-
 [node name="PickupRange" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -42,9 +42,20 @@ script = ExtResource("2_mx4kt")
 left_position = Vector2(-11, 2)
 right_position = Vector2(11, 2)
 
+[node name="InteractRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractRange"]
+position = Vector2(17, 2)
+shape = SubResource("RectangleShape2D_etk2v")
+script = ExtResource("2_mx4kt")
+left_position = Vector2(-17, 2)
+right_position = Vector2(17, 2)
+
 [node name="FlipController" type="Node2D" parent="." node_paths=PackedStringArray("nodes_to_flip")]
 script = ExtResource("6_wlahb")
-nodes_to_flip = [NodePath("../PickupRange/shape"), NodePath("../HeldObject")]
+nodes_to_flip = [NodePath("../PickupRange/shape"), NodePath("../HeldObject"), NodePath("../InteractRange/CollisionShape2D")]
 
 [node name="Visibility" type="Node2D" parent="."]
 script = ExtResource("7_a3plf")
@@ -72,5 +83,14 @@ draw_debug = true
 [node name="MovementController" type="Node2D" parent="."]
 script = ExtResource("8_wu6qc")
 
+[node name="HeldObject" type="Node2D" parent="."]
+position = Vector2(4, 2)
+script = ExtResource("3_i7nv5")
+
+[node name="InteractionHandler" type="Node2D" parent="."]
+script = ExtResource("9_o0fr0")
+
 [connection signal="body_entered" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_exited"]
+[connection signal="area_entered" from="InteractRange" to="InteractionHandler" method="on_area_enter"]
+[connection signal="area_exited" from="InteractRange" to="InteractionHandler" method="on_area_exit"]

@@ -19,6 +19,8 @@ func _ready():
 
 
 func is_in_light() -> bool:
+	if !is_instance_valid(self):
+		return false
 	if disable_probing:
 		return false
 	

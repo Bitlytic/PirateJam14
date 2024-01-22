@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqncw3tk12wq0"]
+[gd_scene load_steps=13 format=3 uid="uid://bqncw3tk12wq0"]
 
 [ext_resource type="Script" path="res://Scripts/LevelLight.gd" id="1_814yv"]
 [ext_resource type="Texture2D" uid="uid://pt67wevif6od" path="res://Art/background.png" id="1_djmu4"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cxbhdk71hsi5w" path="res://Objects/core.tscn" id="8_7ptqh"]
 [ext_resource type="PackedScene" uid="uid://x435cv4epyk6" path="res://Objects/socket.tscn" id="9_0st0s"]
 [ext_resource type="PackedScene" uid="uid://f3nywtgid2ar" path="res://Objects/mirror_block.tscn" id="10_brg0v"]
+[ext_resource type="PackedScene" uid="uid://capeutjf1btlt" path="res://Objects/lever.tscn" id="11_lvor5"]
 
 [sub_resource type="Environment" id="Environment_s7123"]
 
@@ -67,5 +68,34 @@ position = Vector2(-88, 72)
 contraptions = [NodePath("../BeamLight"), NodePath("../BeamLight2"), null]
 
 [node name="MirrorBlock" parent="." instance=ExtResource("10_brg0v")]
-position = Vector2(88, 73)
+position = Vector2(92, 84)
 rotation = 0.0493777
+
+[node name="MirrorBlock2" parent="." instance=ExtResource("10_brg0v")]
+position = Vector2(63, 51)
+rotation = -2.35619
+
+[node name="MirrorBlock3" parent="." instance=ExtResource("10_brg0v")]
+position = Vector2(64, 88)
+
+[node name="MirrorBlock4" parent="." instance=ExtResource("10_brg0v")]
+position = Vector2(-125, 12)
+rotation = -1.57079
+
+[node name="MirrorBlock6" parent="." instance=ExtResource("10_brg0v")]
+position = Vector2(-85, 9)
+rotation = -1.83259
+scale = Vector2(2.32126, 2.32126)
+
+[node name="MirrorBlock5" parent="." instance=ExtResource("10_brg0v")]
+position = Vector2(-124, 72)
+rotation = 0.0493777
+scale = Vector2(1, 1)
+
+[node name="Lever" parent="." node_paths=PackedStringArray("activatables") instance=ExtResource("11_lvor5")]
+position = Vector2(16, 88)
+activatables = [NodePath("../BeamLight")]
+
+[node name="Lever2" parent="." node_paths=PackedStringArray("activatables") instance=ExtResource("11_lvor5")]
+position = Vector2(-46, 88)
+activatables = [NodePath("../MirrorBlock5")]

@@ -53,13 +53,18 @@ func _on_pickup_range_body_entered(body):
 	pickup_target = body
 	
 	if !pickup_targets.has(body):
+		if body is Interactable:
+			body.highlight()
 		pickup_targets.append(body)
 
 
 func _on_pickup_range_body_exited(body):
 	var index = pickup_targets.find(body)
-	print(body, index)
+	
 	if index != -1:
+		if body is Interactable:
+			print(body)
+			body.unhighlight()
 		pickup_targets.remove_at(index)
 	
 	if body == pickup_target:

@@ -1,23 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://f3nywtgid2ar"]
+[gd_scene load_steps=8 format=3 uid="uid://f3nywtgid2ar"]
 
-[ext_resource type="Texture2D" uid="uid://caku3n5b6tpa1" path="res://Art/monochrome_tilemap_transparent_packed.png" id="1_tj8yp"]
 [ext_resource type="Script" path="res://Scripts/mirror_block.gd" id="1_wxmmd"]
 [ext_resource type="PackedScene" uid="uid://bo5ie4iog87lx" path="res://Objects/light_probe.tscn" id="2_iva08"]
+[ext_resource type="Shader" path="res://Shaders/InteractOutline.gdshader" id="3_87py1"]
 [ext_resource type="PackedScene" uid="uid://dqrbhwpdmpamg" path="res://Objects/beam_light.tscn" id="3_nfu84"]
+[ext_resource type="Texture2D" uid="uid://c6duyamiybjes" path="res://Art/Mirror.png" id="4_hkr3w"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3e3r1"]
-polygon = PackedVector2Array(8, 8, -7, 8, 8, -7)
+polygon = PackedVector2Array(-6, 7, -7, 7, 7, -7, 7, -6)
 
-[node name="MirrorBlock" type="RigidBody2D" node_paths=PackedStringArray("_probes_holder", "beam_center", "beam_light")]
-collision_layer = 34
-collision_mask = 192
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1kua"]
+shader = ExtResource("3_87py1")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[node name="Mirror" type="Node2D"]
 script = ExtResource("1_wxmmd")
-_probes_holder = NodePath("Probes")
-beam_center = NodePath("BeamCenter")
-beam_light = NodePath("BeamCenter/BeamLight")
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(8, 8, 8, -7, -7, 8)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_3e3r1")
@@ -30,15 +31,14 @@ position = Vector2(1.62553, -8.58307e-06)
 scale = Vector2(1.54, 0.55)
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_tj8yp")
-region_enabled = true
+material = SubResource("ShaderMaterial_a1kua")
+texture = ExtResource("4_hkr3w")
 region_rect = Rect2(64, 16, 16, 16)
 
 [node name="Probes" type="Node2D" parent="."]
 position = Vector2(-0.5, -0.5)
-
-[node name="LightProbe" parent="Probes" instance=ExtResource("2_iva08")]
-position = Vector2(7, -7)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="LightProbe2" parent="Probes" instance=ExtResource("2_iva08")]
 position = Vector2(6, -6)
@@ -80,3 +80,10 @@ position = Vector2(-6, 6)
 
 [node name="LightProbe15" parent="Probes" instance=ExtResource("2_iva08")]
 position = Vector2(-7, 7)
+
+[node name="CastOcclusion" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CastOcclusion"]
+polygon = PackedVector2Array(7, -7, -7, 7, -6, 8, 8, -6)

@@ -1,10 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxbhdk71hsi5w"]
+[gd_scene load_steps=10 format=3 uid="uid://cxbhdk71hsi5w"]
 
+[ext_resource type="Shader" path="res://Shaders/InteractOutline.gdshader" id="1_6yp0q"]
+[ext_resource type="Script" path="res://Scripts/core.gd" id="1_o0dfu"]
 [ext_resource type="Texture2D" uid="uid://2027ivjdxwfi" path="res://Art/Core.png" id="1_u7ytp"]
 [ext_resource type="Script" path="res://Scripts/CoreLight.gd" id="2_3csyj"]
 
+[sub_resource type="Curve" id="Curve_3sevs"]
+min_value = 0.9
+max_value = 1.1
+_data = [Vector2(0.0281899, 0.999786), 0.0, 0.0, 0, 0, Vector2(0.0979228, 1.05476), 0.0, 0.0, 0, 0, Vector2(0.179525, 0.973341), -0.00869987, -0.00869987, 0, 0, Vector2(0.259644, 1.04145), 0.0, 0.0, 0, 0, Vector2(0.341246, 1.00535), 0.0, 0.0, 0, 0, Vector2(0.412463, 0.985171), 0.0, 0.0, 0, 0, Vector2(0.485163, 1.01022), 0.0, 0.0, 0, 0, Vector2(0.578635, 0.988651), 0.0, 0.0, 0, 0, Vector2(0.692878, 1.01092), 0.0, 0.0, 0, 0, Vector2(0.804154, 0.988651), 0.0, 0.0, 0, 0, Vector2(0.949555, 1.00048), 0.0, 0.0, 0, 0]
+point_count = 11
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvby1"]
 radius = 6.08276
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tbst"]
+shader = ExtResource("1_6yp0q")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="Gradient" id="Gradient_74p15"]
 offsets = PackedFloat32Array(0, 0.74026, 1)
@@ -23,11 +39,15 @@ collision_layer = 6
 collision_mask = 192
 linear_damp = 4.53
 angular_damp = 37.514
+script = ExtResource("1_o0dfu")
+breathing_curve = SubResource("Curve_3sevs")
+breathing_time = 25.0
 
 [node name="Floor Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_cvby1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_4tbst")
 texture = ExtResource("1_u7ytp")
 
 [node name="Core Light" type="PointLight2D" parent="."]
