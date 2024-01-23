@@ -8,6 +8,9 @@ var powered_buffer := 0
 var powered := false
 var core_colliding := false
 
+func _ready():
+	turn_off_contraptions()
+
 func on_core_enter(body: RigidBody2D):
 	core_colliding = true
 	powered_buffer = powered_buffer_size

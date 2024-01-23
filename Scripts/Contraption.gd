@@ -3,6 +3,11 @@ extends Node2D
 
 @export var inverse_power := false
 
+
+func _ready():
+	handle_power(false)
+
+
 func handle_power(powered: bool):
 	# If powered and inverse_power, turn off
 	# If powered and not inverse_power, turn on

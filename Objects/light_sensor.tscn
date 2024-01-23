@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://mqnxie834w10"]
+
+[ext_resource type="Script" path="res://Scripts/light_sensor.gd" id="1_1nn7k"]
+[ext_resource type="Texture2D" uid="uid://cmwmfvwlf4lkt" path="res://Art/LightSensor.png" id="2_v7cw1"]
+[ext_resource type="PackedScene" uid="uid://bo5ie4iog87lx" path="res://Objects/light_probe.tscn" id="3_ke8nk"]
+
+[sub_resource type="Gradient" id="Gradient_oyvjr"]
+offsets = PackedFloat32Array(0, 0.822064, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.88968, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6vp30"]
+gradient = SubResource("Gradient_oyvjr")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_c8ars"]
+resource_name = "activate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_t0rcs"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_ngmv0"]
+resource_name = "deactivate"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqjaq"]
+_data = {
+"RESET": SubResource("Animation_t0rcs"),
+"activate": SubResource("Animation_c8ars"),
+"deactivate": SubResource("Animation_ngmv0")
+}
+
+[node name="LightSensor" type="Node2D"]
+script = ExtResource("1_1nn7k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_v7cw1")
+hframes = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+enabled = false
+blend_mode = 2
+texture = SubResource("GradientTexture2D_6vp30")
+texture_scale = 0.3
+
+[node name="Probes" type="Node2D" parent="."]
+
+[node name="LightProbe" parent="Probes" instance=ExtResource("3_ke8nk")]
+position = Vector2(-1, 1)
+
+[node name="LightProbe2" parent="Probes" instance=ExtResource("3_ke8nk")]
+position = Vector2(1, 1)
+
+[node name="LightProbe3" parent="Probes" instance=ExtResource("3_ke8nk")]
+position = Vector2(1, -1)
+
+[node name="LightProbe4" parent="Probes" instance=ExtResource("3_ke8nk")]
+position = Vector2(-1, -1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sqjaq")
+}
