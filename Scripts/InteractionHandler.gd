@@ -18,7 +18,7 @@ func _ready():
 	shape_query.transform = interaction_shape.global_transform
 
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("interact"):
 		if !current_interactables.is_empty():
 			var interactable = current_interactables[0]
@@ -26,7 +26,7 @@ func _process(delta):
 				interactable.interact()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var space_state = get_world_2d().direct_space_state
 	
 	shape_query.transform = interaction_shape.global_transform
@@ -44,27 +44,27 @@ func _physics_process(delta):
 		interactable.highlight()
 
 func on_area_enter(area: Area2D):
-	var owner := area.owner
+	var area_owner := area.owner
 	
-	if !(owner is Interactable):
+	if !(area_owner is Interactable):
 		return
 	
-	if current_interactables.has(owner):
+	if current_interactables.has(area_owner):
 		return
 	
-	owner.highlight()
-	current_interactables.append(owner)
+	area_owner.highlight()
+	current_interactables.append(area_owner)
 
 
 func on_area_exit(area: Area2D):
-	var owner := area.owner
+	var area_owner := area.owner
 	
-	if !(owner is Interactable):
+	if !(area_owner is Interactable):
 		return
 	
-	if !current_interactables.has(owner):
+	if !current_interactables.has(area_owner):
 		return
 	
-	owner.unhighlight()
-	current_interactables.erase(owner)
+	area_owner.unhighlight()
+	current_interactables.erase(area_owner)
 

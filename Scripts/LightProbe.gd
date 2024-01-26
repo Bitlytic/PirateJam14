@@ -13,6 +13,8 @@ var sprite : Sprite2D
 
 var _lights : Array
 
+var core_light := false
+
 func _ready():
 	_lights = get_tree().get_nodes_in_group("lights")
 	sprite = $Sprite2D
@@ -47,6 +49,8 @@ func is_in_light() -> bool:
 	point_query.collision_mask = beam_mask
 	
 	var beam_results = space_state.intersect_point(point_query)
+	
+	core_light = false
 	
 	for light: PointLight2D in _lights:
 		if !light.enabled:
@@ -83,6 +87,8 @@ func is_in_light() -> bool:
 		var result = space_state.intersect_ray(query)
 		
 		if result.is_empty():
+			if light is CoreLight:
+				core_light = true
 			lights.append(light)
 	
 	if sprite:
@@ -91,6 +97,10 @@ func is_in_light() -> bool:
 	return !lights.is_empty()
 
 
-func _process(delta):
+func is_in_core_light():
+	return core_light
+
+
+func _process(_delta):
 	if debug_probe:
 		is_in_light()

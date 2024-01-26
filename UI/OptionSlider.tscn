@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr54p1qo3dpip"]
+
+[ext_resource type="Script" path="res://UI/OptionSlider.gd" id="1_40mhn"]
+
+[node name="Slider" type="HBoxContainer"]
+script = ExtResource("1_40mhn")
+
+[node name="OptionLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music Volume"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MinimumLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="ValueEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.5"
+alignment = 1
+
+[node name="MaximumLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="ValueSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 10
+
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/ValueEdit" to="." method="on_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ValueSlider" to="." method="on_value_changed"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://qkmo20br2lah"]
+
+[ext_resource type="Script" path="res://Scripts/PauseMenuController.gd" id="1_gvf4l"]
+
+[node name="PauseMenuController" type="Node2D" node_paths=PackedStringArray("pause_menu")]
+process_mode = 3
+script = ExtResource("1_gvf4l")
+pause_menu = NodePath("")

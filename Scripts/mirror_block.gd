@@ -38,8 +38,8 @@ func debug_test(delta):
 		global_rotation += deg_to_rad(90*delta)
 
 
-func _physics_process(delta):
-	debug_test(delta)
+func _physics_process(_delta):
+	#debug_test(delta)
 	var probes_in_light : Array[LightProbe] = []
 	for probe in probes:
 		if probe.is_in_light():

@@ -9,7 +9,7 @@ func _ready():
 			light_probes.append(p)
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var valid = false
 	
 	for p in light_probes:

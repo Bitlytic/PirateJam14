@@ -66,7 +66,7 @@ func _process(delta):
 	$ScreenLight.energy = health / max_health * starting_light
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	handle_flip_visuals()
 	

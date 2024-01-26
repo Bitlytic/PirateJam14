@@ -12,7 +12,7 @@ func _ready():
 	if held_object:
 		hold_object(held_object)
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("drop"):
 		
 		if held_object != null:

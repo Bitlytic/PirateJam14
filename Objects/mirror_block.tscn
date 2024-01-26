@@ -30,6 +30,9 @@ rotation = -2.35619
 position = Vector2(1.62553, -8.58307e-06)
 scale = Vector2(1.54, 0.55)
 
+[node name="LongLight" parent="BeamCenter/BeamLight" index="1"]
+visible = false
+
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_a1kua")
 texture = ExtResource("4_hkr3w")
@@ -90,3 +93,5 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CastOcclusion"]
 polygon = PackedVector2Array(7, -7, -7, 7, -6, 8, 8, -6)
+
+[editable path="BeamCenter/BeamLight"]

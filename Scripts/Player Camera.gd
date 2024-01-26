@@ -13,13 +13,10 @@ var real_position := Vector2()
 
 func _ready():
 	add_to_group("player_camera")
-	if !target:
-		push_warning(self, " did not have a target!")
-		#queue_free()
 	real_position = global_position
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !follow:
 		return
 	

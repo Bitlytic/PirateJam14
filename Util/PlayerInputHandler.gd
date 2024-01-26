@@ -8,4 +8,5 @@ static func get_player_input() -> PlayerInput:
 	player_input.jump_pressed = Input.is_action_just_pressed("move_jump")
 	player_input.jump_held = Input.is_action_pressed("move_jump")
 	
+	
 	return player_input

@@ -1,0 +1,146 @@
+[gd_scene load_steps=8 format=3 uid="uid://ceunbpdwu1ug6"]
+
+[ext_resource type="Theme" uid="uid://x70dsxqp2k10" path="res://UI/Theme/main_theme.tres" id="1_5eebc"]
+[ext_resource type="Script" path="res://UI/OptionsMenu.gd" id="2_aw3bi"]
+[ext_resource type="Script" path="res://UI/MainMenu.gd" id="2_uyk0s"]
+[ext_resource type="PackedScene" uid="uid://cr54p1qo3dpip" path="res://UI/OptionSlider.tscn" id="3_6s46m"]
+[ext_resource type="Script" path="res://UI/FullscreenOption.gd" id="4_nn1ja"]
+[ext_resource type="AudioStream" uid="uid://s1umwqnk3w73" path="res://Music/Lightfarer.mp3" id="4_u4io1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x22t"]
+bg_color = Color(0, 0, 0, 0.803922)
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5eebc")
+
+[node name="MainMenu" type="Control" parent="." node_paths=PackedStringArray("options_menu")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_uyk0s")
+options_menu = NodePath("../OptionsMenu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = -16.0
+offset_right = 144.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="PlayButton" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Exit"
+
+[node name="OptionsMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_aw3bi")
+
+[node name="PanelContainer" type="Panel" parent="OptionsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8x22t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/PanelContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="OptionsMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="OptionsMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullscreenOption" type="HBoxContainer" parent="OptionsMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_nn1ja")
+
+[node name="Label" type="Label" parent="OptionsMenu/PanelContainer/VBoxContainer/FullscreenOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen Mode"
+
+[node name="OptionButton" type="OptionButton" parent="OptionsMenu/PanelContainer/VBoxContainer/FullscreenOption"]
+custom_minimum_size = Vector2(176, 0)
+layout_mode = 2
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="Music Volume" parent="OptionsMenu/PanelContainer/VBoxContainer" instance=ExtResource("3_6s46m")]
+layout_mode = 2
+
+[node name="Sound Volume" parent="OptionsMenu/PanelContainer/VBoxContainer" instance=ExtResource("3_6s46m")]
+layout_mode = 2
+option_text = "Sound Volume"
+option_name = "sound_volume"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_u4io1")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="MainMenu/VBoxContainer/PlayButton" to="MainMenu" method="on_play_clicked"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/OptionsButton" to="MainMenu" method="on_options_clicked"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/ExitButton" to="MainMenu" method="on_exit_clicked"]

@@ -4,13 +4,16 @@ extends Node2D
 @export var inverse_power := false
 @export var required_power := 1
 
-var last_power_state : bool
+var last_power_count
 
 var power_sources := []
 
 
 func _ready():
 	update_powered()
+	
+	if inverse_power:
+		handle_power(false)
 
 
 func add_source(source):
@@ -32,11 +35,16 @@ func remove_source(source):
 
 
 func update_powered():
-	var power_state = power_sources.size() >= required_power
+	var power_count = power_sources.size()
 	
-	if power_state != last_power_state:
-		last_power_state = power_state
-		handle_power(power_state)
+	var was_powered_last = false
+	if last_power_count:
+		was_powered_last = last_power_count >= required_power
+	var powered_now = power_count >= required_power
+	
+	if was_powered_last != powered_now:
+		last_power_count = power_sources.size()
+		handle_power(last_power_count >= required_power)
 
 
 func handle_power(powered: bool):

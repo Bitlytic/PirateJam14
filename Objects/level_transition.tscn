@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://ttw5on66l5bd"]
+
+[ext_resource type="Script" path="res://Scripts/LevelTransition.gd" id="1_rgop5"]
+
+[sub_resource type="Animation" id="Animation_p6qoh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_516d6"]
+resource_name = "fade_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(3.03143, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4k6mr"]
+_data = {
+"RESET": SubResource("Animation_p6qoh"),
+"fade_out": SubResource("Animation_516d6")
+}
+
+[node name="LevelTransition" type="Area2D"]
+script = ExtResource("1_rgop5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 999
+offset_left = -472.0
+offset_top = -304.0
+offset_right = 464.0
+offset_bottom = 312.0
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4k6mr")
+}
+
+[connection signal="body_entered" from="." to="." method="on_body_entered"]

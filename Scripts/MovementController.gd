@@ -82,7 +82,7 @@ func _physics_process(delta):
 		jump_buffer -= 1
 	
 	if jump_buffer:
-		if player_input.directional_input.y > 0 && is_on_floor:
+		if player_input.directional_input.y > 0.25 && is_on_floor:
 			player.global_position.y += 1
 			velocity.y += gravity*delta
 			jump_buffer = 0
@@ -111,12 +111,12 @@ func _physics_process(delta):
 func handle_fly(delta):
 	var direction = player_input.directional_input
 	
-	var speed = 10000.0
+	var fly_speed = 10000.0
 	
 	if Input.is_action_pressed("move_sprint"):
-		speed *= 2.0
+		fly_speed *= 2.0
 	
 	elif Input.is_action_pressed("move_crouch"):
-		speed *= 0.5
+		fly_speed *= 0.5
 	
-	player.velocity = direction * speed * delta
+	player.velocity = direction * fly_speed * delta

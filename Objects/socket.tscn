@@ -7,7 +7,7 @@
 size = Vector2(10, 5)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o8cr6"]
-polygon = PackedVector2Array(8, -5, 5, -5, 0, -4, -5, -5, -8, -5, -8, 8, 8, 8)
+polygon = PackedVector2Array(8, -6, 5, -5, 2, -3, -2, -3, -5, -5, -8, -6, -8, 8, 8, 8)
 
 [node name="Socket" type="Node2D"]
 script = ExtResource("1_ewb3w")
@@ -25,7 +25,7 @@ collision_layer = 160
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collision"]
-polygon = PackedVector2Array(5, -5, 8, -5, 8, 8, -8, 8, -8, -5, -5, -5, 0, -4)
+polygon = PackedVector2Array(5, -5, 8, -6, 8, 8, -8, 8, -8, -6, -5, -5, -2, -3, 2, -3)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_o8cr6")

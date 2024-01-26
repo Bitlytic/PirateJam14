@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c04rjccfohxyl"]
+[gd_scene load_steps=43 format=3 uid="uid://c04rjccfohxyl"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yv7s0"]
 [ext_resource type="Texture2D" uid="uid://dnsl7j05xt64n" path="res://Art/Cat.png" id="2_7csi1"]
@@ -11,6 +11,10 @@
 [ext_resource type="Script" path="res://Scripts/InteractionHandler.gd" id="9_o0fr0"]
 [ext_resource type="Texture2D" uid="uid://ytrllt3234wq" path="res://Art/Robot.png" id="9_x8tma"]
 [ext_resource type="Texture2D" uid="uid://qaobikoareo4" path="res://Art/Robot-face.png" id="10_iu5fh"]
+[ext_resource type="AudioStream" uid="uid://bvvs5at2wwfr1" path="res://Music/Lightfarer-Ambience-Sad-Trim.mp3" id="12_ni4rt"]
+[ext_resource type="Script" path="res://Scripts/PlayerMusicController.gd" id="14_7lwdh"]
+[ext_resource type="AudioStream" uid="uid://djw2a8i4idi5n" path="res://Music/Lightfarer-Ambience-Happy-Trim.mp3" id="14_uvp4e"]
+[ext_resource type="AudioStream" uid="uid://dhxqa8oqnk71i" path="res://Music/Lightfarer-Ambience-Trim.mp3" id="15_rc3dm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jm6xp"]
 size = Vector2(12, 18)
@@ -591,10 +595,6 @@ scale = Vector2(2, 2)
 script = ExtResource("8_wu6qc")
 speed = 95.0
 
-[node name="HeldObject" type="Node2D" parent="."]
-position = Vector2(4, 2)
-script = ExtResource("3_i7nv5")
-
 [node name="InteractionHandler" type="Node2D" parent="." node_paths=PackedStringArray("interaction_shape")]
 script = ExtResource("9_o0fr0")
 interaction_shape = NodePath("../InteractRange/CollisionShape2D")
@@ -613,6 +613,10 @@ frame = 1
 [node name="CatSprite" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("2_7csi1")
+
+[node name="HeldObject" type="Node2D" parent="."]
+position = Vector2(3, 10)
+script = ExtResource("3_i7nv5")
 
 [node name="ScreenLight" type="PointLight2D" parent="."]
 position = Vector2(0, 4)
@@ -639,6 +643,31 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_ob1lb")
 anim_player = NodePath("../FaceController")
 parameters/conditions/die = false
+
+[node name="SadMusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("12_ni4rt")
+volume_db = -30.0
+autoplay = true
+bus = &"Music"
+
+[node name="HappyMusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("14_uvp4e")
+autoplay = true
+bus = &"Music"
+
+[node name="PlayerMusicController" type="Node2D" parent="." node_paths=PackedStringArray("visibility", "sad_stream", "happy_stream")]
+script = ExtResource("14_7lwdh")
+visibility = NodePath("../Visibility")
+sad_stream = NodePath("../SadMusicPlayer")
+happy_stream = NodePath("../HappyMusicPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("15_rc3dm")
+autoplay = true
+bus = &"Music"
 
 [connection signal="body_entered" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_exited"]

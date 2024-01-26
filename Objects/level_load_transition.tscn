@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyqlikafmj4u0"]
+
+[ext_resource type="Script" path="res://Scripts/LevelLoadTransition.gd" id="1_uydbs"]
+
+[sub_resource type="Animation" id="Animation_gby7n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ryk0t"]
+resource_name = "fade_in"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(2.63902, 2.07053),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tro4a"]
+_data = {
+"RESET": SubResource("Animation_gby7n"),
+"fade_in": SubResource("Animation_ryk0t")
+}
+
+[node name="LevelLoadTransition" type="Node2D"]
+script = ExtResource("1_uydbs")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = 999
+offset_left = -472.0
+offset_top = -304.0
+offset_right = 464.0
+offset_bottom = 312.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tro4a")
+}

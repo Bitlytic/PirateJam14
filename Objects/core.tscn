@@ -12,7 +12,7 @@ _data = [Vector2(0.0281899, 0.999786), 0.0, 0.0, 0, 0, Vector2(0.0979228, 1.0547
 point_count = 11
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvby1"]
-radius = 6.08276
+radius = 4.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4tbst"]
 shader = ExtResource("1_6yp0q")
@@ -52,7 +52,7 @@ material = SubResource("ShaderMaterial_4tbst")
 texture = ExtResource("1_u7ytp")
 
 [node name="Core Light" type="PointLight2D" parent="."]
-color = Color(1, 0.917647, 0.839216, 1)
+color = Color(1, 0.858824, 0.729412, 1)
 blend_mode = 2
 shadow_enabled = true
 shadow_filter = 1

@@ -1,5 +1,7 @@
 extends Node2D
 
+signal socket_powered
+
 @export var contraptions : Array[Contraption]
 
 
@@ -8,21 +10,23 @@ var powered_buffer := 0
 var powered := false
 var core_colliding := false
 
+
 func _ready():
 	turn_off_contraptions()
 
-func on_core_enter(body: RigidBody2D):
+
+func on_core_enter(_body: RigidBody2D):
 	core_colliding = true
 	powered_buffer = powered_buffer_size
 	if !powered:
 		turn_on_contraptions()
 
 
-func on_core_leave(body: RigidBody2D):
+func on_core_leave(_body: RigidBody2D):
 	core_colliding = false
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !core_colliding && powered_buffer > 0:
 		powered_buffer -= 1
 		
@@ -45,6 +49,7 @@ func power_contraptions():
 func turn_on_contraptions():
 	powered = true
 	power_contraptions()
+	socket_powered.emit()
 
 
 func turn_off_contraptions():
