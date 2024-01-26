@@ -1,0 +1,19 @@
+Before Core:
+
+	Intro:
+		Level where you work your way up platforms in lit areas until you get the core
+		Then the areas go dark and you need to hold the core on the way down
+
+
+
+
+
+
+
+
+After Core:
+	
+	Level that locks the player out of core
+		- Trapdoor that the player must activate that drops the core into a socket
+		and shuts the door behind them
+

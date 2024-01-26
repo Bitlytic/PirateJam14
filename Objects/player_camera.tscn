@@ -3,6 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/Player Camera.gd" id="1_rd5f4"]
 
 [node name="Player Camera" type="Camera2D"]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 script = ExtResource("1_rd5f4")
 follow = false

@@ -1,21 +1,69 @@
 class_name Player
 extends CharacterBody2D
 
+signal player_died
+
 @export var visibility : VisibilityComponent
 
-var max_health := 0.5
-@onready var health := max_health
+var death_anim_length := 1.0
 
+var max_health := 0.3
+var health : float
+
+var sprite : Sprite2D
+
+var starting_light
+
+@onready var body_controller : AnimationPlayer = $AnimationPlayer
+
+@onready var face_controller : AnimationPlayer = $FaceController
+
+@onready var anim_tree : AnimationTree = $AnimationTree
+
+var last_facing_direction := "right"
+
+func _ready():
+	if has_node("RobotSprite"):
+		sprite = $RobotSprite
+	starting_light = $ScreenLight.energy
+	max_health = max_health + death_anim_length
+	health = max_health
+	#face_controller.play("idle")
+	anim_tree.set("parameters/conditions/idle", true)
 
 func _process(delta):
 	if !visibility.is_in_light():
-		health -= delta
-		if health <= 0:
-			$Sprite.modulate.a = 0.0
-			pass
+		if health > 0:
+			health -= delta
+			if health <= death_anim_length:
+				#face_controller.play("die")
+				anim_tree.set("parameters/conditions/die", true)
+				pass
+		else:
+			player_died.emit()
 	else:
 		health = max_health
-		$Sprite.modulate.a = 1.0
+		anim_tree.set("parameters/conditions/die", false)
+	var anim = "idle"
+	
+	if velocity:
+		if velocity.x > 0:
+			last_facing_direction = "right"
+		elif velocity.x < 0:
+			last_facing_direction = "left"
+		
+		var motion_type = "run"
+		
+		if velocity.y:
+			motion_type = "jump"
+			if velocity.y > 0:
+				motion_type += "_fall"
+		
+		anim = motion_type + "_" + last_facing_direction
+		
+	body_controller.play(anim)
+	
+	$ScreenLight.energy = health / max_health * starting_light
 
 
 func _physics_process(delta):
@@ -27,8 +75,8 @@ func _physics_process(delta):
 
 func handle_flip_visuals():
 	if velocity.x > 0:
-		$Sprite.flip_h = false
+		sprite.flip_h = false
 		$FlipController.face_right()
 	elif velocity.x < 0:
-		$Sprite.flip_h = true
+		sprite.flip_h = true
 		$FlipController.face_left()

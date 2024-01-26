@@ -9,9 +9,9 @@ func interact():
 
 func highlight():
 	if sprite:
-		sprite.material.set("shader_param/width", 1)
+		sprite.material.set("shader_parameter/width", 1)
 
 
 func unhighlight():
 	if sprite:
-		sprite.material.set("shader_param/width", 0)
+		sprite.material.set("shader_parameter/width", 0)

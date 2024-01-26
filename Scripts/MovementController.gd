@@ -23,21 +23,29 @@ var jump_buffer := 0
 var aerial_frames := 0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var dead := false
+
+var player_input : PlayerInput
 
 
 func _ready():
 	player = get_parent()
+	player.player_died.connect(on_player_died)
+
+
+func on_player_died():
+	dead = true
 
 
 func handle_aerial(delta):
 	var gravity_multiplier := fall_gravity
 	
 	if velocity.y < 0:
-		if !Input.is_action_pressed("move_jump"):
-			velocity.y *= 0.5
+		if !player_input.jump_held:
+			velocity.y *= 0.25
 		gravity_multiplier = climb_gravity
 	else:
-		if abs(velocity.y) < hang_threshold && Input.is_action_pressed("move_jump"):
+		if abs(velocity.y) < hang_threshold && player_input.jump_held:
 			gravity_multiplier = hang_gravity
 	
 	velocity.y += gravity * gravity_multiplier * delta
@@ -45,7 +53,16 @@ func handle_aerial(delta):
 	aerial_frames += 1
 
 
+func poll_input():
+	if !dead:
+		player_input = PlayerInputHandler.get_player_input()
+	else:
+		player_input = PlayerInput.new()
+
+
 func _physics_process(delta):
+	poll_input()
+	
 	if debug_fly:
 		handle_fly(delta)
 		return
@@ -59,32 +76,40 @@ func _physics_process(delta):
 	else:
 		aerial_frames = 0
 	
-	if Input.is_action_just_pressed("move_jump"):
+	if player_input.jump_pressed:
 		jump_buffer = jump_buffer_size
 	elif jump_buffer > 0:
 		jump_buffer -= 1
 	
-	if jump_buffer and (is_on_floor || aerial_frames < coyote_frames):
-		velocity.y = jump_velocity
-		jump_buffer = 0
-		aerial_frames = coyote_frames
+	if jump_buffer:
+		if player_input.directional_input.y > 0 && is_on_floor:
+			player.global_position.y += 1
+			velocity.y += gravity*delta
+			jump_buffer = 0
+		elif (is_on_floor || aerial_frames < coyote_frames):
+			velocity.y = jump_velocity
+			jump_buffer = 0
+			aerial_frames = coyote_frames
 	
-	var direction = Input.get_axis("move_left", "move_right")
+	var direction = player_input.directional_input.x
 	var target_speed = direction * speed
 	
-	if sign(target_speed) && sign(target_speed) != sign(velocity.x):
+	if !dead && sign(target_speed) && sign(target_speed) != sign(velocity.x):
 		velocity.x *= 0.9
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, target_speed, speed / float(acceleration_frames))
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed / float(deceleration_frames))
+		var frames = deceleration_frames
+		if dead:
+			frames = deceleration_frames * 5
+		velocity.x = move_toward(velocity.x, 0, speed / float(frames))
 	
 	player.velocity = velocity
 
 
 func handle_fly(delta):
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction = player_input.directional_input
 	
 	var speed = 10000.0
 	

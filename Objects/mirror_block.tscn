@@ -40,6 +40,9 @@ position = Vector2(-0.5, -0.5)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
+[node name="LightProbe" parent="Probes" instance=ExtResource("2_iva08")]
+position = Vector2(7, -7)
+
 [node name="LightProbe2" parent="Probes" instance=ExtResource("2_iva08")]
 position = Vector2(6, -6)
 

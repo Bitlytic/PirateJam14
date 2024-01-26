@@ -1,0 +1,116 @@
+[gd_scene load_steps=16 format=3 uid="uid://c04rjccfohxyl"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yv7s0"]
+[ext_resource type="Texture2D" uid="uid://dnsl7j05xt64n" path="res://Art/Cat.png" id="2_7csi1"]
+[ext_resource type="Script" path="res://Scripts/FlippableShape.gd" id="2_mx4kt"]
+[ext_resource type="Script" path="res://Scripts/HeldObject.gd" id="3_i7nv5"]
+[ext_resource type="Script" path="res://Scripts/FlipController.gd" id="6_wlahb"]
+[ext_resource type="PackedScene" uid="uid://bo5ie4iog87lx" path="res://Objects/light_probe.tscn" id="7_6e8xx"]
+[ext_resource type="Script" path="res://Scripts/Visibility.gd" id="7_a3plf"]
+[ext_resource type="Script" path="res://Scripts/MovementController.gd" id="8_wu6qc"]
+[ext_resource type="Script" path="res://Scripts/InteractionHandler.gd" id="9_o0fr0"]
+[ext_resource type="Texture2D" uid="uid://ytrllt3234wq" path="res://Art/Robot.png" id="9_x8tma"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jm6xp"]
+size = Vector2(12, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uw0gh"]
+size = Vector2(28, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_etk2v"]
+size = Vector2(28, 20)
+
+[sub_resource type="Gradient" id="Gradient_6g0ww"]
+offsets = PackedFloat32Array(0, 0.33452, 0.469751, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.893238, 1, 1, 1, 0.773822, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1xyh2"]
+gradient = SubResource("Gradient_6g0ww")
+height = 48
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visibility")]
+collision_mask = 448
+script = ExtResource("1_yv7s0")
+visibility = NodePath("Visibility")
+
+[node name="Floor Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_jm6xp")
+
+[node name="PickupRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="shape" type="CollisionShape2D" parent="PickupRange"]
+position = Vector2(17, 7)
+shape = SubResource("RectangleShape2D_uw0gh")
+script = ExtResource("2_mx4kt")
+left_position = Vector2(-11, 2)
+right_position = Vector2(11, 2)
+
+[node name="InteractRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractRange"]
+position = Vector2(17, 7)
+shape = SubResource("RectangleShape2D_etk2v")
+script = ExtResource("2_mx4kt")
+left_position = Vector2(-17, 2)
+right_position = Vector2(17, 2)
+
+[node name="FlipController" type="Node2D" parent="." node_paths=PackedStringArray("nodes_to_flip")]
+script = ExtResource("6_wlahb")
+nodes_to_flip = [NodePath("../PickupRange/shape"), NodePath("../HeldObject"), NodePath("../InteractRange/CollisionShape2D")]
+
+[node name="Visibility" type="Node2D" parent="."]
+script = ExtResource("7_a3plf")
+
+[node name="LightProbeTL" parent="Visibility" instance=ExtResource("7_6e8xx")]
+position = Vector2(-6, 0)
+scale = Vector2(2, 2)
+
+[node name="LightProbeBL" parent="Visibility" instance=ExtResource("7_6e8xx")]
+position = Vector2(-6, 14)
+scale = Vector2(2, 2)
+
+[node name="LightProbeTR" parent="Visibility" instance=ExtResource("7_6e8xx")]
+position = Vector2(6, 0)
+scale = Vector2(2, 2)
+
+[node name="LightProbeBR" parent="Visibility" instance=ExtResource("7_6e8xx")]
+position = Vector2(6, 14)
+scale = Vector2(2, 2)
+
+[node name="MovementController" type="Node2D" parent="."]
+script = ExtResource("8_wu6qc")
+
+[node name="HeldObject" type="Node2D" parent="."]
+position = Vector2(4, 2)
+script = ExtResource("3_i7nv5")
+
+[node name="InteractionHandler" type="Node2D" parent="." node_paths=PackedStringArray("interaction_shape")]
+script = ExtResource("9_o0fr0")
+interaction_shape = NodePath("../InteractRange/CollisionShape2D")
+interaction_mask = 8
+
+[node name="RobotSprite" type="Sprite2D" parent="."]
+texture = ExtResource("9_x8tma")
+
+[node name="CatSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_7csi1")
+
+[node name="ScreenLight" type="PointLight2D" parent="."]
+position = Vector2(0, 4)
+scale = Vector2(0.721394, 0.721394)
+color = Color(0.776471, 1, 0.768627, 0.701961)
+energy = 0.81
+texture = SubResource("GradientTexture2D_1xyh2")
+texture_scale = 0.4
+
+[connection signal="body_entered" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_entered"]
+[connection signal="body_exited" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_exited"]

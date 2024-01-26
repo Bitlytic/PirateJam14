@@ -18,15 +18,17 @@ size = Vector2(64, 32)
 script = ExtResource("1_50bak")
 
 [node name="Light" type="PointLight2D" parent="."]
+position = Vector2(0.1, 0)
 blend_mode = 2
 shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 10.3
 texture = SubResource("GradientTexture2D_jvfw0")
-offset = Vector2(31, 0)
+offset = Vector2(32, 0)
 script = ExtResource("1_65usq")
 
 [node name="LightArea" type="Area2D" parent="Light"]
+position = Vector2(1, 0)
 collision_layer = 16
 collision_mask = 0
 

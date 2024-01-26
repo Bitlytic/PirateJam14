@@ -13,11 +13,17 @@ func _ready():
 func face_right():
 	for i in nodes_to_flip.size():
 		var node = nodes_to_flip[i]
+		if node is Sprite2D:
+			node.scale.x = 1
+			continue
 		node.position = original_positions[i]
 
 
 func face_left():
 	for i in nodes_to_flip.size():
 		var node = nodes_to_flip[i]
+		if node is Sprite2D:
+			node.scale.x = -1
+			continue
 		node.position = original_positions[i]
 		node.position.x *= -1

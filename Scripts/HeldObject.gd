@@ -19,9 +19,6 @@ func _process(delta):
 			drop_object()
 		elif pickup_targets.size() > 0:
 			hold_object(pickup_targets[0])
-			
-	if Input.is_action_just_pressed("move_crouch"):
-		print(pickup_targets)
 
 
 func hold_object(node: RigidBody2D):
@@ -63,7 +60,6 @@ func _on_pickup_range_body_exited(body):
 	
 	if index != -1:
 		if body is Interactable:
-			print(body)
 			body.unhighlight()
 		pickup_targets.remove_at(index)
 	

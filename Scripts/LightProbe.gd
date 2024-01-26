@@ -53,7 +53,8 @@ func is_in_light() -> bool:
 			continue
 		
 		# Beam lights use area to check bounds, maybe others should too?
-		if light is BeamLight:
+		# Point lights have now been added to this, other should definitely do this.
+		if light is AreaLight:
 			var valid := false
 			for beam in beam_results:
 				var l = beam['collider'].get_parent()

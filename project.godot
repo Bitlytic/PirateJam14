@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PirateJam14"
-run/main_scene="res://Scenes/Test_Level.tscn"
+run/main_scene="res://Scenes/Intro_Level.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
+
+[editor]
+
+movie_writer/movie_file="C:/Users/Gavin/Documents/Godot 4/PirateJam14/Movie/output.avi"
 
 [input]
 
@@ -80,9 +84,11 @@ move_crouch={
 2d_physics/layer_6="Light Occluder"
 2d_physics/layer_7="Object"
 2d_physics/layer_8="Wall"
+2d_physics/layer_9="Transparent Wall"
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 textures/lossless_compression/force_png=true
 2d/shadow_atlas/size=4096
+environment/defaults/default_clear_color=Color(0.0705882, 0.0666667, 0.0784314, 1)

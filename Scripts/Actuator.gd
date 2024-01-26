@@ -5,7 +5,7 @@ extends Interactable
 
 
 func interact():
-	print("I'm an actuator")
+	pass
 
 
 func activate_all():
@@ -18,4 +18,7 @@ func deactivate_all():
 
 func power_all(power: bool = false):
 	for a in activatables:
-		a.handle_power(power)
+		if power:
+			a.add_source(self)
+		else:
+			a.remove_source(self)

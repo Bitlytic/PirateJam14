@@ -14,6 +14,9 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
+[sub_resource type="Animation" id="Animation_t0rcs"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_c8ars"]
 resource_name = "activate"
 tracks/0/type = "value"
@@ -40,9 +43,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [1]
 }
-
-[sub_resource type="Animation" id="Animation_t0rcs"]
-length = 0.001
 
 [sub_resource type="Animation" id="Animation_ngmv0"]
 resource_name = "deactivate"

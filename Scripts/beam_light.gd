@@ -1,3 +1,3 @@
 class_name BeamLight
-extends CommonLight
+extends AreaLight
 

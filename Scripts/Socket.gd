@@ -36,7 +36,10 @@ func _physics_process(delta):
 func power_contraptions():
 	for c in contraptions:
 		if c:
-			c.handle_power(powered)
+			if powered:
+				c.add_source(self)
+			else:
+				c.remove_source(self)
 
 
 func turn_on_contraptions():

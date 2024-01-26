@@ -24,10 +24,8 @@ func _physics_process(delta):
 	
 	if valid:
 		activate()
-		print("Activated!")
 	else:
 		deactivate()
-		print("Deactivated!")
 
 func activate():
 	activate_all()

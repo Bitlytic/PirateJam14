@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://x435cv4epyk6"]
+[gd_scene load_steps=5 format=3 uid="uid://x435cv4epyk6"]
 
 [ext_resource type="Script" path="res://Scripts/Socket.gd" id="1_ewb3w"]
-[ext_resource type="Texture2D" uid="uid://caku3n5b6tpa1" path="res://Art/monochrome_tilemap_transparent_packed.png" id="2_atmlu"]
+[ext_resource type="Texture2D" uid="uid://c0u1shc7y7yen" path="res://Art/CoreSocket.png" id="2_fxd81"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ah31e"]
 size = Vector2(10, 5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o8cr6"]
+polygon = PackedVector2Array(8, -5, 5, -5, 0, -4, -5, -5, -8, -5, -8, 8, 8, 8)
 
 [node name="Socket" type="Node2D"]
 script = ExtResource("1_ewb3w")
@@ -17,10 +20,18 @@ collision_mask = 4
 position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_ah31e")
 
+[node name="Collision" type="StaticBody2D" parent="."]
+collision_layer = 160
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collision"]
+polygon = PackedVector2Array(5, -5, 8, -5, 8, 8, -8, 8, -8, -5, -5, -5, 0, -4)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_o8cr6")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("2_atmlu")
-region_enabled = true
+texture = ExtResource("2_fxd81")
 region_rect = Rect2(224, 80, 16, 16)
 
 [connection signal="body_entered" from="Area2D" to="." method="on_core_enter"]

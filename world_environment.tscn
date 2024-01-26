@@ -1,11 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://ce7yh6pwhv2u1"]
 
+[ext_resource type="Environment" uid="uid://ce605bfbxa6ev" path="res://Environment/world_environment.tres" id="1_1venv"]
 [ext_resource type="Script" path="res://Scripts/LevelLight.gd" id="1_7qcbo"]
 
-[sub_resource type="Environment" id="Environment_s7123"]
-
 [node name="WorldEnvironment" type="WorldEnvironment"]
-environment = SubResource("Environment_s7123")
+environment = ExtResource("1_1venv")
 
 [node name="GlobalLight" type="DirectionalLight2D" parent="."]
 color = Color(0.4, 0.4, 0.380392, 1)

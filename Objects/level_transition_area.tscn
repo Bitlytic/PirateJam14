@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dclyh533imifo"]
+
+[ext_resource type="Script" path="res://Scripts/LevelTransitionArea.gd" id="1_7y5xp"]
+
+[node name="LevelTransitionArea" type="Area2D"]
+script = ExtResource("1_7y5xp")

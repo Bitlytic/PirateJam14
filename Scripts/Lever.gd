@@ -6,6 +6,7 @@ extends Actuator
 
 
 func _ready():
+	sprite = $Sprite2D
 	unhighlight()
 	power_all(activated)
 	handle_animation()
