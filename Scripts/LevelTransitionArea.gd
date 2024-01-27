@@ -2,6 +2,8 @@ class_name LevelTransitionArea
 extends Area2D
 
 
+@export var checkpoint : Node2D
+
 @export var camera_target : Node2D
 @export var player_camera : PlayerCamera
 @export var camera_zoom := 3.0
@@ -28,3 +30,8 @@ func on_body_entered(_body):
 		return
 
 	player_camera.target_position = camera_target.global_position
+	
+	if checkpoint:
+		RetrySettings.camera_target = camera_target.global_position
+		RetrySettings.checkpoint = checkpoint.global_position
+		RetrySettings.valid = true

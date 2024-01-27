@@ -20,6 +20,8 @@ var starting_light
 
 @onready var anim_tree : AnimationTree = $AnimationTree
 
+@onready var debounce_timer : Timer = $DeathDebounceTimer
+
 var last_facing_direction := "right"
 
 func _ready():
@@ -30,6 +32,8 @@ func _ready():
 	health = max_health
 	#face_controller.play("idle")
 	anim_tree.set("parameters/conditions/idle", true)
+	
+	debounce_timer.timeout.connect(on_debounce_finish)
 
 func _process(delta):
 	if !visibility.is_in_light():
@@ -42,6 +46,8 @@ func _process(delta):
 		else:
 			player_died.emit()
 	else:
+		if !debounce_timer.is_stopped():
+			debounce_timer.stop()
 		health = max_health
 		anim_tree.set("parameters/conditions/die", false)
 	var anim = "idle"
@@ -71,6 +77,10 @@ func _physics_process(_delta):
 	handle_flip_visuals()
 	
 	move_and_slide()
+
+
+func on_debounce_finish():
+	player_died.emit()
 
 
 func handle_flip_visuals():

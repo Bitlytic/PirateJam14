@@ -17,4 +17,5 @@ func on_body_entered(body):
 
 func on_anim_finish(anim_name):
 	if anim_name == "fade_out":
+		RetrySettings.valid = false
 		get_tree().change_scene_to_packed(level)

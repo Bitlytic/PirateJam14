@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdvspujmgix7q"]
+[gd_scene load_steps=5 format=3 uid="uid://cdvspujmgix7q"]
 
 [ext_resource type="Theme" uid="uid://x70dsxqp2k10" path="res://UI/Theme/main_theme.tres" id="1_tetdu"]
 [ext_resource type="Script" path="res://UI/PauseMenu.gd" id="2_67wl2"]
+[ext_resource type="PackedScene" uid="uid://ce7qrnjm6kvbn" path="res://UI/options_menu.tscn" id="3_ko80g"]
+[ext_resource type="Script" path="res://UI/DeathMenu.gd" id="4_luh28"]
 
 [node name="Ingame UI" type="Control"]
 layout_mode = 3
@@ -12,7 +14,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_tetdu")
 
-[node name="PauseMenu" type="Control" parent="." groups=["pause_menu"]]
+[node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("options_menu") groups=["pause_menu"]]
+process_mode = 3
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -23,8 +26,9 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_67wl2")
+options_menu = NodePath("OptionsMenu")
 
-[node name="ResumeButton" type="Button" parent="PauseMenu"]
+[node name="OptionsButton" type="Button" parent="PauseMenu"]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -39,7 +43,7 @@ offset_bottom = 152.31
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
-text = "Resume"
+text = "Options"
 
 [node name="MenuButton" type="Button" parent="PauseMenu"]
 process_mode = 3
@@ -74,5 +78,57 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 72
 text = "Paused"
 
-[connection signal="pressed" from="PauseMenu/ResumeButton" to="PauseMenu" method="on_resume_clicked"]
+[node name="OptionsMenu" parent="PauseMenu" instance=ExtResource("3_ko80g")]
+layout_mode = 1
+
+[node name="DeathMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_luh28")
+
+[node name="RetryButton" type="Button" parent="DeathMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 40.0
+offset_right = 100.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Retry"
+
+[node name="Label" type="Label" parent="DeathMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -333.0
+offset_top = -64.0
+offset_right = 333.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 46
+text = "You ran out of power."
+horizontal_alignment = 1
+
+[connection signal="visibility_changed" from="PauseMenu" to="PauseMenu" method="on_visibility_changed"]
+[connection signal="pressed" from="PauseMenu/OptionsButton" to="PauseMenu" method="on_options_clicked"]
 [connection signal="pressed" from="PauseMenu/MenuButton" to="PauseMenu" method="on_menu_clicked"]
+[connection signal="visibility_changed" from="PauseMenu/OptionsMenu" to="PauseMenu" method="on_options_visibility_changed"]
+[connection signal="visibility_changed" from="DeathMenu" to="DeathMenu" method="on_visibility_changed"]
+[connection signal="pressed" from="DeathMenu/RetryButton" to="DeathMenu" method="on_retry_pressed"]

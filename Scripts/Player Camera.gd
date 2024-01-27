@@ -7,13 +7,20 @@ extends Camera2D
 
 var target_position: set = set_target_position
 
-var current_tween : Tween
+var current_tween : Tween = null
 
 var real_position := Vector2()
 
 func _ready():
 	add_to_group("player_camera")
 	real_position = global_position
+	
+	var tween = create_tween()
+	
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	
+	tween.tween_property(self, "global_position", global_position, 0.75)
 
 
 func _physics_process(_delta):
@@ -28,7 +35,7 @@ func _physics_process(_delta):
 func set_target_position(new_pos):
 	if new_pos == target_position:
 		return
-		
+	
 	target_position = new_pos
 	
 	if current_tween:

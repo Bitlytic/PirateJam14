@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=3 uid="uid://ce7qrnjm6kvbn"]
+
+[ext_resource type="Script" path="res://UI/OptionsMenu.gd" id="1_wv836"]
+[ext_resource type="Script" path="res://UI/FullscreenOption.gd" id="2_2eytc"]
+[ext_resource type="PackedScene" uid="uid://cr54p1qo3dpip" path="res://UI/OptionSlider.tscn" id="3_hbioj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x22t"]
+bg_color = Color(0, 0, 0, 0.803922)
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wv836")
+
+[node name="PanelContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8x22t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullscreenOption" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Sound Volume/VBoxContainer/ValueSlider")
+focus_neighbor_bottom = NodePath("../Music Volume/VBoxContainer/ValueSlider")
+focus_next = NodePath("../Music Volume/VBoxContainer/ValueSlider")
+focus_previous = NodePath("../Sound Volume/VBoxContainer/ValueSlider")
+script = ExtResource("2_2eytc")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/FullscreenOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen Mode"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/FullscreenOption"]
+custom_minimum_size = Vector2(176, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../Sound Volume/VBoxContainer/ValueSlider")
+focus_neighbor_bottom = NodePath("../../Music Volume/VBoxContainer/ValueSlider")
+focus_next = NodePath("../../Music Volume/VBoxContainer/ValueSlider")
+focus_previous = NodePath("../../Sound Volume/VBoxContainer/ValueSlider")
+alignment = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Fullscreen"
+popup/item_2/id = 2
+
+[node name="Music Volume" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_hbioj")]
+layout_mode = 2
+
+[node name="ValueSlider" parent="PanelContainer/VBoxContainer/Music Volume/VBoxContainer" index="1"]
+focus_neighbor_top = NodePath("../../../FullscreenOption/OptionButton")
+focus_neighbor_bottom = NodePath("../../../Sound Volume/VBoxContainer/ValueSlider")
+focus_next = NodePath("../../../Sound Volume/VBoxContainer/ValueSlider")
+focus_previous = NodePath(".")
+
+[node name="Sound Volume" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_hbioj")]
+layout_mode = 2
+option_text = "Sound Volume"
+option_name = "sound_volume"
+
+[node name="ValueSlider" parent="PanelContainer/VBoxContainer/Sound Volume/VBoxContainer" index="1"]
+focus_neighbor_top = NodePath("../../../Music Volume/VBoxContainer/ValueSlider")
+focus_neighbor_bottom = NodePath("../../../FullscreenOption/OptionButton")
+focus_next = NodePath("../../../FullscreenOption/OptionButton")
+focus_previous = NodePath("../../../Music Volume/VBoxContainer/ValueSlider")
+
+[connection signal="visibility_changed" from="." to="." method="on_visibility_changed"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/FullscreenOption/OptionButton" to="PanelContainer/VBoxContainer/FullscreenOption" method="on_mode_changed"]
+
+[editable path="PanelContainer/VBoxContainer/Music Volume"]
+[editable path="PanelContainer/VBoxContainer/Sound Volume"]

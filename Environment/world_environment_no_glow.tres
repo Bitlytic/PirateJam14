@@ -1,0 +1,7 @@
+[gd_resource type="Environment" format=3 uid="uid://dqsn4ygtdrf0h"]
+
+[resource]
+background_mode = 3
+glow_intensity = 3.84
+glow_strength = 1.09
+glow_bloom = 0.1

@@ -39,7 +39,12 @@ func drop_object():
 		return
 	#held_object.process_mode = Node.PROCESS_MODE_INHERIT
 	held_object.freeze = false
-	held_object.reparent(get_tree().root)
+	
+	var new_parent = get_tree().get_first_node_in_group("level")
+	if !new_parent:
+		# Shouldn't do this, causes issues here.
+		new_parent = get_tree().root
+	held_object.reparent(new_parent)
 	
 	held_object = null
 	

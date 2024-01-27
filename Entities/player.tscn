@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://c04rjccfohxyl"]
+[gd_scene load_steps=39 format=3 uid="uid://c04rjccfohxyl"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_yv7s0"]
 [ext_resource type="Texture2D" uid="uid://dnsl7j05xt64n" path="res://Art/Cat.png" id="2_7csi1"]
@@ -11,10 +11,6 @@
 [ext_resource type="Script" path="res://Scripts/InteractionHandler.gd" id="9_o0fr0"]
 [ext_resource type="Texture2D" uid="uid://ytrllt3234wq" path="res://Art/Robot.png" id="9_x8tma"]
 [ext_resource type="Texture2D" uid="uid://qaobikoareo4" path="res://Art/Robot-face.png" id="10_iu5fh"]
-[ext_resource type="AudioStream" uid="uid://bvvs5at2wwfr1" path="res://Music/Lightfarer-Ambience-Sad-Trim.mp3" id="12_ni4rt"]
-[ext_resource type="Script" path="res://Scripts/PlayerMusicController.gd" id="14_7lwdh"]
-[ext_resource type="AudioStream" uid="uid://djw2a8i4idi5n" path="res://Music/Lightfarer-Ambience-Happy-Trim.mp3" id="14_uvp4e"]
-[ext_resource type="AudioStream" uid="uid://dhxqa8oqnk71i" path="res://Music/Lightfarer-Ambience-Trim.mp3" id="15_rc3dm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jm6xp"]
 size = Vector2(12, 18)
@@ -537,7 +533,8 @@ states/idle/node = SubResource("AnimationNodeAnimation_y6i15")
 states/idle/position = Vector2(446, 50)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_18qpg"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_bjp1g"), "die", "idle", SubResource("AnimationNodeStateMachineTransition_8dwy1")]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visibility")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visibility") groups=["player"]]
+z_index = 99
 collision_mask = 448
 script = ExtResource("1_yv7s0")
 visibility = NodePath("Visibility")
@@ -572,7 +569,7 @@ right_position = Vector2(17, 2)
 script = ExtResource("6_wlahb")
 nodes_to_flip = [NodePath("../PickupRange/shape"), NodePath("../HeldObject"), NodePath("../InteractRange/CollisionShape2D")]
 
-[node name="Visibility" type="Node2D" parent="."]
+[node name="Visibility" type="Node2D" parent="." groups=["visibility"]]
 script = ExtResource("7_a3plf")
 
 [node name="LightProbeTL" parent="Visibility" instance=ExtResource("7_6e8xx")]
@@ -644,30 +641,8 @@ tree_root = SubResource("AnimationNodeStateMachine_ob1lb")
 anim_player = NodePath("../FaceController")
 parameters/conditions/die = false
 
-[node name="SadMusicPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("12_ni4rt")
-volume_db = -30.0
-autoplay = true
-bus = &"Music"
-
-[node name="HappyMusicPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("14_uvp4e")
-autoplay = true
-bus = &"Music"
-
-[node name="PlayerMusicController" type="Node2D" parent="." node_paths=PackedStringArray("visibility", "sad_stream", "happy_stream")]
-script = ExtResource("14_7lwdh")
-visibility = NodePath("../Visibility")
-sad_stream = NodePath("../SadMusicPlayer")
-happy_stream = NodePath("../HappyMusicPlayer")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("15_rc3dm")
-autoplay = true
-bus = &"Music"
+[node name="DeathDebounceTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_entered" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_entered"]
 [connection signal="body_exited" from="PickupRange" to="HeldObject" method="_on_pickup_range_body_exited"]

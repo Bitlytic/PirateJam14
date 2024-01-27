@@ -82,7 +82,7 @@ func _physics_process(delta):
 		jump_buffer -= 1
 	
 	if jump_buffer:
-		if player_input.directional_input.y > 0.25 && is_on_floor:
+		if player_input.directional_input.y > 0.5 && is_on_floor:
 			player.global_position.y += 1
 			velocity.y += gravity*delta
 			jump_buffer = 0

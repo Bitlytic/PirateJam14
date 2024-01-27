@@ -10,6 +10,9 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		var paused = pause_menu.visible
+		
+		if paused && pause_menu.options_shown:
+			return
 		paused = !paused
 		
 		pause_menu.visible = paused

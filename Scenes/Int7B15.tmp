@@ -1,7 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://bimwxmga622sp"]
+[gd_scene load_steps=28 format=3 uid="uid://bimwxmga622sp"]
 
 [ext_resource type="PackedScene" uid="uid://ce7yh6pwhv2u1" path="res://world_environment.tscn" id="1_ex2fi"]
-[ext_resource type="Environment" uid="uid://dqsn4ygtdrf0h" path="res://Environment/world_environment_no_glow.tres" id="2_jq13y"]
 [ext_resource type="TileSet" uid="uid://bhmbaa0tvp1w7" path="res://Tilesets/1Bit-Modified-NoCollision.tres" id="2_pacnd"]
 [ext_resource type="TileSet" uid="uid://vhgu2ymxxsm8" path="res://Tilesets/1Bit-Modified.tres" id="3_auq18"]
 [ext_resource type="PackedScene" uid="uid://c04rjccfohxyl" path="res://Entities/player.tscn" id="4_sekh0"]
@@ -44,10 +43,6 @@ size = Vector2(48, 80)
 [node name="IntroLevel" type="Node2D" groups=["level"]]
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_ex2fi")]
-environment = ExtResource("2_jq13y")
-
-[node name="RetryHandler" type="Node2D" parent="."]
-script = ExtResource("21_t84su")
 
 [node name="LevelObjects" type="Node2D" parent="."]
 
@@ -117,20 +112,6 @@ player_camera = NodePath("../../../../Player Camera")
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_tgx46")
 
-[node name="LevelTransitionArea3" type="Area2D" parent="LevelObjects/Contraptions/TopArea" node_paths=PackedStringArray("camera_target", "player_camera")]
-position = Vector2(72, -24)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("7_1ej3v")
-camera_target = NodePath("../../../CameraFocus")
-player_camera = NodePath("../../../../Player Camera")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelObjects/Contraptions/TopArea/LevelTransitionArea3"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_tgx46")
-
-[node name="IntroCheckpoint" type="Node2D" parent="LevelObjects/Contraptions/TopArea/LevelTransitionArea3"]
-
 [node name="StartArea" type="Node" parent="LevelObjects/Contraptions"]
 
 [node name="PointLight" parent="LevelObjects/Contraptions/StartArea" instance=ExtResource("7_p1lag")]
@@ -188,8 +169,9 @@ camera_target = NodePath("../RightAreaFocus")
 position = Vector2(-24, 0)
 shape = SubResource("RectangleShape2D_tu20v")
 
-[node name="LevelTransitionArea3" parent="LevelObjects/Contraptions/RightArea" node_paths=PackedStringArray("camera_target") instance=ExtResource("13_lembx")]
+[node name="LevelTransitionArea3" parent="LevelObjects/Contraptions/RightArea" node_paths=PackedStringArray("checkpoint", "camera_target") instance=ExtResource("13_lembx")]
 position = Vector2(768, -56)
+checkpoint = NodePath("../Puzzle1Checkpoint")
 camera_target = NodePath("../RightAreaFocus")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelObjects/Contraptions/RightArea/LevelTransitionArea3"]
@@ -238,18 +220,6 @@ position = Vector2(616, -136)
 activatables = [NodePath("../Door")]
 
 [node name="Puzzle1Checkpoint" type="Node2D" parent="LevelObjects/Contraptions/RightArea"]
-position = Vector2(440, -56)
-
-[node name="Door3" parent="LevelObjects/Contraptions/RightArea" instance=ExtResource("6_cxyqv")]
-position = Vector2(760, -56)
-
-[node name="LightSensor" parent="LevelObjects/Contraptions/RightArea" node_paths=PackedStringArray("activatables") instance=ExtResource("12_0raf1")]
-position = Vector2(736, -56)
-activatables = [NodePath("../Door3")]
-
-[node name="LightSensor3" parent="LevelObjects/Contraptions/RightArea" node_paths=PackedStringArray("activatables") instance=ExtResource("12_0raf1")]
-position = Vector2(784, -56)
-activatables = [NodePath("../Door3")]
 
 [node name="RighterArea" type="Node" parent="LevelObjects/Contraptions"]
 
@@ -260,16 +230,12 @@ position = Vector2(984, -104)
 visible = false
 shape = SubResource("RectangleShape2D_tedr0")
 
-[node name="LevelTransitionArea2" parent="LevelObjects/Contraptions/RighterArea" node_paths=PackedStringArray("checkpoint", "camera_target") instance=ExtResource("13_lembx")]
+[node name="LevelTransitionArea2" parent="LevelObjects/Contraptions/RighterArea" node_paths=PackedStringArray("camera_target") instance=ExtResource("13_lembx")]
 position = Vector2(792, -56)
-checkpoint = NodePath("../RighterAreaCheckpoint")
 camera_target = NodePath("../RighterAreaFocus")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelObjects/Contraptions/RighterArea/LevelTransitionArea2"]
 shape = SubResource("RectangleShape2D_vercc")
-
-[node name="RighterAreaCheckpoint" type="Node2D" parent="LevelObjects/Contraptions/RighterArea"]
-position = Vector2(800, -56)
 
 [node name="ElectricalLayoutFG" type="TileMap" parent="LevelObjects"]
 tile_set = ExtResource("11_e3j1a")
@@ -283,11 +249,11 @@ layer_0/modulate = Color(0.482353, 0.482353, 0.482353, 1)
 layer_0/tile_data = PackedInt32Array(-131037, 65536, 1, -589760, 0, 0, -196573, 0, 0, -262109, 0, 0, -327645, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("4_sekh0")]
-position = Vector2(72, -72)
+position = Vector2(64, -32)
 
 [node name="Player Camera" parent="." instance=ExtResource("5_xtxdx")]
 z_index = 99
-position = Vector2(232, -200)
+position = Vector2(224, -88)
 
 [node name="Core" parent="." instance=ExtResource("10_l87rf")]
 position = Vector2(280, -304)
@@ -320,16 +286,11 @@ shape = SubResource("RectangleShape2D_i3llh")
 
 [node name="LevelLoadTransition" parent="." instance=ExtResource("18_81w24")]
 
-[node name="ColorRect" parent="LevelLoadTransition" index="0"]
-offset_left = -960.0
-offset_top = -792.0
-offset_right = 848.0
-offset_bottom = 616.0
-
 [node name="PauseMenuController" parent="." instance=ExtResource("19_28f4n")]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Ingame UI" parent="UI" instance=ExtResource("20_a0oex")]
 
-[editable path="LevelLoadTransition"]
+[node name="RetryHandler" type="Node2D" parent="."]
+script = ExtResource("21_t84su")
