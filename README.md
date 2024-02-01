@@ -2,7 +2,7 @@
 This is the game I made for the Pirate Jam 14 in Jan 2024. It was made in around two weeks.
 
 # Tools
-- Engine - Godot
+- Engine - Godot v4.2
 - Audio - Musescore 4
 - Art - Aseprite
 
